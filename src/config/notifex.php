@@ -17,7 +17,7 @@ return [
         'password' => env('NOTIFEX_JIRA_PASSWORD'),
 
         'project_key'   => env('NOTIFEX_JIRA_PROJECT_KEY'),
-        'issue_type'    => env('NOTIFEX_JIRA_ISSUE_TYPE', 'Task'),
-        'priority_name' => env('NOTIFEX_JIRA_PRIORITY_NAME', 'Bug'),
+        'issue_type'    => env('NOTIFEX_JIRA_ISSUE_TYPE', 'Bug'),
+        'priority_name' => env('NOTIFEX_JIRA_PRIORITY_NAME', 'Critical'),
     ],
 ];

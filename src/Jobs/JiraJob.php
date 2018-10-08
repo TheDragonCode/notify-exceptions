@@ -4,19 +4,20 @@ namespace Helldar\NotifyExceptions\Jobs;
 
 use Helldar\NotifyExceptions\Models\ErrorNotification;
 use Helldar\NotifyExceptions\Services\SlackService;
-use Helldar\NotifyExceptions\Traits\Titles;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use JiraRestApi\Configuration\ArrayConfiguration;
 use JiraRestApi\Issue\IssueField;
 use JiraRestApi\Issue\IssueService;
+use JiraRestApi\JiraException;
 
 class JiraJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Notifiable, Titles;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Notifiable;
 
     protected $item;
 
@@ -32,26 +33,50 @@ class JiraJob implements ShouldQueue
 
     private function toJira()
     {
-        $field   = new IssueField;
-        $service = new IssueService;
+        try {
+            $field   = new IssueField;
+            $service = new IssueService($this->getJiraConfiguration());
 
-        $field
-            ->setProjectKey(config('notifex.jira.project_key'))
-            ->setIssueType(config('notifex.jira.issue_type'))
-            ->setPriorityName(config('notifex.jira.priority_name'))
-            ->setSummary($this->title())
-            ->setDescription($this->getDescription())
-            ->addLabel(config('app.url'))
-            ->addLabel(config('app.env'))
-            ->addLabel($this->item->parent);
+            $field
+                ->setProjectKey(config('notifex.jira.project_key'))
+                ->setIssueType(config('notifex.jira.issue_type'))
+                ->setPriorityName(config('notifex.jira.priority_name'))
+                ->setSummary($this->getTitle())
+                ->setDescription('test')
+                ->setDescription($this->getDescription())
+                ->addLabel(config('app.url'))
+                ->addLabel(config('app.env'))
+                ->addLabel($this->item->parent);
+
+            $service->create($field);
+        } catch (JiraException $exception) {
+            app('sneaker')->captureException($exception);
+        }
+    }
+
+    private function getTitle(): string
+    {
+        $server      = request()->getHost() ?? config('app.url');
+        $environment = config('app.env');
+
+        return sprintf('%s | Server - %s | Environment - %s', $this->item->parent, $server, $environment);
     }
 
     private function getDescription(): string
     {
         return implode(PHP_EOL, [
-            sprintf('Message: *%s*', $this->item->exception->getMessage()),
-            sprintf('File: *%s:%s*', $this->item->exception->getFile(), $this->item->exception->getLine()),
+            sprintf('*%s*', $this->item->exception->getMessage()),
+            sprintf('_%s:%s_', $this->item->exception->getFile(), $this->item->exception->getLine()),
             sprintf('{code:bash}%s{code}', $this->item->exception->getTraceAsString()),
+        ]);
+    }
+
+    private function getJiraConfiguration(): ArrayConfiguration
+    {
+        return new ArrayConfiguration([
+            'jiraHost'     => config('notifex.jira.host'),
+            'jiraUser'     => config('notifex.jira.user'),
+            'jiraPassword' => config('notifex.jira.password'),
         ]);
     }
 }
