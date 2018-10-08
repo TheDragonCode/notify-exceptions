@@ -16,13 +16,13 @@
         }
     ],
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.0",
         "guzzlehttp/guzzle": "^6.3",
-        "illuminate/bus": "^5.7",
+        "illuminate/bus": "^5.5",
         "illuminate/contracts": "^5.5",
         "illuminate/queue": "^5.5",
-        "illuminate/notifications": "^5.7",
-        "illuminate/support": "^5.7",
+        "illuminate/notifications": "^5.5",
+        "illuminate/support": "^5.5",
         "lesstif/php-jira-rest-client": "^1.32",
         "squareboat/sneaker": "^5.0",
         "symfony/http-kernel": "^4.1"
