@@ -16,8 +16,8 @@ return [
     'jira' => [
         'enabled' => env('NOTIFEX_JIRA_ENABLED', false),
 
-        'host'     => env('NOTIFEX_HOST'),
-        'user'     => env('NOTIFEX_USER'),
-        'password' => env('NOTIFEX_PASSWORD'),
+        'host'     => env('NOTIFEX_JIRA_HOST'),
+        'user'     => env('NOTIFEX_JIRA_USER'),
+        'password' => env('NOTIFEX_JIRA_PASSWORD'),
     ],
 ];
