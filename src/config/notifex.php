@@ -3,10 +3,6 @@
 return [
     'queue' => env('NOTIFEX_QUEUE', 'default'),
 
-    'email' => [
-        'enabled' => env('NOTIFEX_EMAIL_ENABLED', true),
-    ],
-
     'slack' => [
         'enabled' => env('NOTIFEX_SLACK_ENABLED', false),
 
@@ -19,5 +15,9 @@ return [
         'host'     => env('NOTIFEX_JIRA_HOST'),
         'user'     => env('NOTIFEX_JIRA_USER'),
         'password' => env('NOTIFEX_JIRA_PASSWORD'),
+
+        'project_key'   => env('NOTIFEX_JIRA_PROJECT_KEY'),
+        'issue_type'    => env('NOTIFEX_JIRA_ISSUE_TYPE', 'Task'),
+        'priority_name' => env('NOTIFEX_JIRA_PRIORITY_NAME', 'Bug'),
     ],
 ];
