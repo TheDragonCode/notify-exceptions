@@ -28,9 +28,6 @@
         "symfony/http-kernel": "^4.1"
     },
     "require-dev": {},
-    "suggest": {
-        "squareboat/sneaker": "An easy way to send emails with stack trace whenever an exception occurs on the server for Laravel applications."
-    },
     "autoload": {
         "classmap": [
             "src/"
