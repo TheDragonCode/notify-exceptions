@@ -56,7 +56,7 @@ To configure the generation, you need go to `config/notifex.php` file for Slack 
 
 ## Using
 
-Add exception capturing to app/Exceptions/Handler.php:
+Add exception capturing to `app/Exceptions/Handler.php`:
 
 ```php
 public function report(Exception $exception)
@@ -66,6 +66,15 @@ public function report(Exception $exception)
     }
 
     parent::report($exception);
+}
+```
+
+or just use in your code:
+```php
+try {
+    $foo = $bar
+} catch(\Exception $exception) {
+    app('notifex')->send($exception);
 }
 ```
 
