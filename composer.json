@@ -1,0 +1,59 @@
+{
+    "name": "andrey-helldar/notify-exceptions",
+    "description": "Notify the site administrator of any errors through various channels of communication.",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "http://ai-rus.com",
+    "keywords": ["notify exceptions", "laravel"],
+    "support": {
+        "issues": "https://github.com/andrey-helldar/notify-exceptions/issues",
+        "source": "https://github.com/andrey-helldar/notify-exceptions"
+    },
+    "authors": [
+        {
+            "name": "Andrey Helldar",
+            "email": "helldar@ai-rus.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.2",
+        "guzzlehttp/guzzle": "^6.3",
+        "illuminate/bus": "^5.7",
+        "illuminate/contracts": "^5.5",
+        "illuminate/queue": "^5.5",
+        "illuminate/notifications": "^5.7",
+        "illuminate/support": "^5.7",
+        "lesstif/php-jira-rest-client": "^1.32",
+        "squareboat/sneaker": "^5.0",
+        "symfony/http-kernel": "^4.1"
+    },
+    "require-dev": {},
+    "suggest": {
+        "squareboat/sneaker": "An easy way to send emails with stack trace whenever an exception occurs on the server for Laravel applications."
+    },
+    "autoload": {
+        "classmap": [
+            "src/"
+        ],
+        "psr-4": {
+            "Helldar\\NotifyExceptions\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Helldar\\NotifyExceptions\\ServiceProvider"
+            ]
+        }
+    }
+}
