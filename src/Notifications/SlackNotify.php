@@ -28,7 +28,7 @@ class SlackNotify extends Notification
     public function __construct($exception, $title)
     {
         $this->exception = $exception;
-        $this->title     = $title;
+        $this->title = $title;
     }
 
     /**

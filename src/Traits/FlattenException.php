@@ -19,7 +19,7 @@ trait FlattenException
         $flatten = function (&$value) {
             if ($value instanceof \Closure) {
                 $closureReflection = new \ReflectionFunction($value);
-                $value             = sprintf('(Closure at %s:%s)', $closureReflection->getFileName(), $closureReflection->getStartLine());
+                $value = sprintf('(Closure at %s:%s)', $closureReflection->getFileName(), $closureReflection->getStartLine());
             } elseif (is_object($value)) {
                 $value = sprintf('object(%s)', get_class($value));
             } elseif (is_resource($value)) {

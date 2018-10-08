@@ -3,7 +3,6 @@
 namespace Helldar\NotifyExceptions\Jobs;
 
 use Helldar\NotifyExceptions\Models\ErrorNotification;
-use Helldar\NotifyExceptions\Services\SlackService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -34,7 +33,7 @@ class JiraJob implements ShouldQueue
     private function toJira()
     {
         try {
-            $field   = new IssueField;
+            $field = new IssueField;
             $service = new IssueService($this->getJiraConfiguration());
 
             $field
@@ -56,7 +55,7 @@ class JiraJob implements ShouldQueue
 
     private function getTitle(): string
     {
-        $server      = request()->getHost() ?? config('app.url');
+        $server = request()->getHost() ?? config('app.url');
         $environment = config('app.env');
 
         return sprintf('%s | Server - %s | Environment - %s', $this->item->parent, $server, $environment);
@@ -74,8 +73,8 @@ class JiraJob implements ShouldQueue
     private function getJiraConfiguration(): ArrayConfiguration
     {
         return new ArrayConfiguration([
-            'jiraHost'     => config('notifex.jira.host'),
-            'jiraUser'     => config('notifex.jira.user'),
+            'jiraHost' => config('notifex.jira.host'),
+            'jiraUser' => config('notifex.jira.user'),
             'jiraPassword' => config('notifex.jira.password'),
         ]);
     }
