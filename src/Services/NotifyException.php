@@ -2,7 +2,6 @@
 
 namespace Helldar\NotifyExceptions\Services;
 
-use Helldar\NotifyExceptions\Jobs\EmailJob;
 use Helldar\NotifyExceptions\Jobs\JiraJob;
 use Helldar\NotifyExceptions\Jobs\SlackJob;
 use Helldar\NotifyExceptions\Models\ErrorNotification;
@@ -27,10 +26,7 @@ class NotifyException
 
     protected function sendEmail(ErrorNotification $error_notification)
     {
-        if (config('notifex.email.enabled', true)) {
-            EmailJob::dispatch($error_notification)
-                ->onQueue($this->queue);
-        }
+        app('sneaker')->captureException($error_notification->exception);
     }
 
     protected function sendSlack(ErrorNotification $error_notification)
