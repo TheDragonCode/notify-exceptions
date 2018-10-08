@@ -26,6 +26,8 @@ class ServiceProvider extends IlluminateServiceProvider
         $this->publishes([
             self::CONFIG_PATH => config_path('notifex.php'),
         ]);
+
+        $this->loadMigrationsFrom(__DIR__ . '/migrations');
     }
 
     /**
