@@ -46,7 +46,7 @@ class SlackJob implements ShouldQueue
 
     private function title()
     {
-        $server = request()->getHost() ?? config('app.url');
+        $server      = request()->getHost() ?? config('app.url');
         $environment = config('app.env');
 
         return implode(PHP_EOL, [
