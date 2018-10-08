@@ -44,6 +44,8 @@ php artisan vendor:publish --provider="Helldar\NotifyExceptions\ServiceProvider"
 php artisan vendor:publish --provider="SquareBoat\Sneaker\SneakerServiceProvider"
 ```
 
+And call `php artisan migrate` command from console. 
+
 Now you can use the `app('notifex')` method.
 
 
