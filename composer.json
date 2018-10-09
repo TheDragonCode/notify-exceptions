@@ -23,11 +23,13 @@
         "illuminate/queue": "^5.5",
         "illuminate/notifications": "^5.5",
         "illuminate/support": "^5.5",
-        "lesstif/php-jira-rest-client": "^1.32",
         "squareboat/sneaker": "^5.0",
         "symfony/http-kernel": "^4.1"
     },
     "require-dev": {},
+    "suggest": {
+        "lesstif/php-jira-rest-client": "PHP classes interact Jira with the REST API."
+    },
     "autoload": {
         "classmap": [
             "src/"

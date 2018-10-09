@@ -54,6 +54,12 @@ Now you can use the `app('notifex')` method.
 To configure the generation, you need go to `config/notifex.php` file for Slack and Jira settings and `config/sneaker.php` for Email notifications (we using a [squareboat/sneaker](https://github.com/squareboat/sneaker) package for that).
 
 
+If you need to create applications in the Jira service, then you need to install the package [lesstif/php-jira-rest-client](https://github.com/lesstif/php-jira-rest-client):
+```bash
+composer require lesstif/php-jira-rest-client
+```
+
+
 ## Using
 
 Add exception capturing to `app/Exceptions/Handler.php`:
