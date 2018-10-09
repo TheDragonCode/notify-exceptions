@@ -41,7 +41,6 @@ class JiraJob implements ShouldQueue
                 ->setIssueType(config('notifex.jira.issue_type'))
                 ->setPriorityName(config('notifex.jira.priority_name'))
                 ->setSummary($this->getTitle())
-                ->setDescription('test')
                 ->setDescription($this->getDescription())
                 ->addLabel(config('app.url'))
                 ->addLabel(config('app.env'))
