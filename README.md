@@ -51,13 +51,69 @@ Now you can use the `app('notifex')` method.
 
 ## Configuration
 
-To configure the generation, you need go to `config/notifex.php` file for Slack and Jira settings and `config/sneaker.php` for Email notifications (we using a [squareboat/sneaker](https://github.com/squareboat/sneaker) package for that).
+To configure the generation, you need go to `config/notifex.php` file for Slack, Jira settings and `config/sneaker.php` for Email notifications (we using a [squareboat/sneaker](https://github.com/squareboat/sneaker) package for that).
 
+
+### Jira
 
 If you need to create applications in the Jira service, then you need to install the package [lesstif/php-jira-rest-client](https://github.com/lesstif/php-jira-rest-client):
 ```bash
 composer require lesstif/php-jira-rest-client
 ```
+
+
+### Your notification services
+
+You can easily connect your notification services. To do this, in block `jobs` of file `config/notifex.php`, add a call to its job:
+```php
+\Helldar\NotifyExceptions\Jobs\ExampleJob::class
+```
+
+If you need to pass any parameters to your job, you can use an associative entry, where the key is the link to the job class, and the values are the parameters:
+```php
+\Helldar\NotifyExceptions\Jobs\ExampleJob::class => [
+    'host'      => 'http://127.0.0.1',
+    'user'      => 'foo',
+    'password'  => 'bar',
+    'other_key' => 12345,
+],
+```
+
+Your job should inherit from the abstract class `Helldar\NotifyExceptions\Abstracts\JobAbstract`. This will help to correctly create a class for work.
+
+To get the values of the settings you need to use the method `getConfig($key)`:
+```php
+$host      = $this->getConfig('host');
+$user      = $this->getConfig('user');
+$password  = $this->getConfig('password');
+$other_key = $this->getConfig('other_key');
+```
+
+Examples of completed classes can be found here:
+* [ExampleJob](src/Jobs/ExampleJob.php)
+* [JiraJob](src/Jobs/JiraJob.php)
+
+It is worth noting that standard jobs of Laravel are used for the call:
+```bash
+php artisan make:job <name>
+```
+
+They should remove the call interface `ShouldQueue` and extend the class 2y:
+```php
+// before
+use Illuminate\Contracts\Queue\ShouldQueue;
+
+class ExampleJob implements ShouldQueue {}
+
+// after
+use Helldar\NotifyExceptions\Abstracts\JobAbstract;
+
+class ExampleJob extends JobAbstract {}
+```
+
+As the abstract class includes a call of all necessary classes and interfaces.
+
+It's all! Enjoy 😊
 
 
 ## Using

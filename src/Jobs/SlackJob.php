@@ -2,16 +2,16 @@
 
 namespace Helldar\NotifyExceptions\Jobs;
 
+use Helldar\NotifyExceptions\Interfaces\JobInterface;
 use Helldar\NotifyExceptions\Models\ErrorNotification;
 use Helldar\NotifyExceptions\Notifications\SlackNotify;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class SlackJob implements ShouldQueue
+class SlackJob implements JobInterface
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Notifiable;
 
