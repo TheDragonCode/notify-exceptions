@@ -20,7 +20,7 @@ return [
         //    'priority_name' => env('NOTIFEX_JIRA_PRIORITY_NAME', 'Critical'),
         //],
         //
-        /**
+        /*
          * @see \Helldar\NotifyExceptions\Jobs\ExampleJob
          */
         //\Helldar\NotifyExceptions\Jobs\ExampleJob::class => [
