@@ -27,11 +27,6 @@ class JiraJob implements ShouldQueue
 
     public function handle()
     {
-        $this->toJira();
-    }
-
-    private function toJira()
-    {
         try {
             $field   = new IssueField;
             $service = new IssueService($this->getJiraConfiguration());
