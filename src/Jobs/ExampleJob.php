@@ -21,8 +21,6 @@ class ExampleJob extends JobAbstract
     protected $item;
 
     /**
-     * JiraJob constructor.
-     *
      * @param \Helldar\NotifyExceptions\Models\ErrorNotification $item
      */
     public function __construct(ErrorNotification $item)
