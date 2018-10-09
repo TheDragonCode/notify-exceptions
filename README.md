@@ -140,6 +140,11 @@ try {
 }
 ```
 
+The package out of the box supports sending notifications to the following services:
+* **Email** _(default, enabled)_
+* **Slack** _(default, disabled)_
+* **Jira** _(default, disabled)_
+
 
 ## License
 
