@@ -15,13 +15,13 @@ Notify the site administrator of any errors through various channels of communic
 
 ## Installation
 
-To get the latest version of Laravel Notify Exception, simply require the project using [Composer](https://getcomposer.org):
+To get the latest version of Notify Exception, simply require the project using [Composer](https://getcomposer.org):
 
 ```
 composer require andrey-helldar/notify-exceptions
 ```
 
-Instead, you may of course manually update your require block and run `composer update` if you so choose:
+Instead, you may of course manually update your `require` block and run `composer update`:
 
 ```json
 {
@@ -31,10 +31,11 @@ Instead, you may of course manually update your require block and run `composer 
 }
 ```
 
-If you don't use auto-discovery, add the `ServiceProvider` to the providers array in `config/app.php`:
+If you don't use auto-discovery, add the `ServiceProvider` to the `providers` array in `config/app.php`:
 
 ```php
 Helldar\NotifyExceptions\ServiceProvider::class,
+SquareBoat\Sneaker\SneakerServiceProvider::class, 
 ```
 
 You can also publish the config file to change implementations (ie. interface to specific class):
@@ -56,7 +57,7 @@ To configure the generation, you need go to `config/notifex.php` file for Slack,
 
 ### Jira
 
-If you need to create applications in the Jira service, then you need to install the package [lesstif/php-jira-rest-client](https://github.com/lesstif/php-jira-rest-client):
+If you need to create issues in the Jira, then you need to install the package [lesstif/php-jira-rest-client](https://github.com/lesstif/php-jira-rest-client):
 ```bash
 composer require lesstif/php-jira-rest-client
 ```
