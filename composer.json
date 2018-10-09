@@ -4,7 +4,7 @@
     "type": "library",
     "license": "MIT",
     "homepage": "http://ai-rus.com",
-    "keywords": ["notify exceptions", "laravel"],
+    "keywords": ["notify exceptions", "notifex", "laravel"],
     "support": {
         "issues": "https://github.com/andrey-helldar/notify-exceptions/issues",
         "source": "https://github.com/andrey-helldar/notify-exceptions"
