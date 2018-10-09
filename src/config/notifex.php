@@ -11,6 +11,8 @@ return [
 
     'jobs' => [
         //\Helldar\NotifyExceptions\Jobs\JiraJob::class => [
+        //    'enabled' => env('NOTIFEX_JIRA_ENABLED', false),
+        //
         //    'host'     => env('NOTIFEX_JIRA_HOST'),
         //    'user'     => env('NOTIFEX_JIRA_USER'),
         //    'password' => env('NOTIFEX_JIRA_PASSWORD'),

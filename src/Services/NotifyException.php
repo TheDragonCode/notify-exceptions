@@ -56,12 +56,12 @@ class NotifyException
         $jobs = (array) config('notifex.jobs', []);
 
         foreach ($jobs as $job => $params) {
-            if (is_numeric($job)) {
-                $job = $params;
-            }
+            $job = is_numeric($job) ? $params : $job;
 
-            dispatch(new $job($error_notification))
-                ->onQueue($this->queue);
+            if ($params['enabled'] ?? false) {
+                dispatch(new $job($error_notification))
+                    ->onQueue($this->queue);
+            }
         }
     }
 
