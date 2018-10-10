@@ -62,6 +62,8 @@ If you need to create issues in the Jira, then you need to install the package [
 composer require lesstif/php-jira-rest-client
 ```
 
+![2018-10-10_23-32-57](https://user-images.githubusercontent.com/10347617/46765597-187b1a80-cce8-11e8-91c4-ca2fffad88ff.png)
+
 
 ### Your notification services
 
