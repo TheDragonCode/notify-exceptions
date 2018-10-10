@@ -26,10 +26,10 @@ return [
          * @see \Helldar\NotifyExceptions\Jobs\ExampleJob
          */
         //\Helldar\NotifyExceptions\Jobs\ExampleJob::class => [
-        //    'host'      => 'http://127.0.0.1',
-        //    'user'      => 'foo',
-        //    'password'  => 'bar',
-        //    'other_key' => 12345,
+        //    'host'      => env('EXAMPLE_HOST'), // http://127.0.0.1:8080
+        //    'user'      => env('EXAMPLE_USER'), // 'foo'
+        //    'password'  => env('EXAMPLE_PASS'), // 'bar'
+        //    'other_key' => env('EXAMPLE_OTHER_KEY'), // 12345
         //],
     ],
 ];
