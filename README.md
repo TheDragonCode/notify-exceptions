@@ -73,10 +73,10 @@ You can easily connect your notification services. To do this, in block `jobs` o
 If you need to pass any parameters to your job, you can use an associative entry, where the key is the link to the job class, and the values are the parameters:
 ```php
 \Helldar\NotifyExceptions\Jobs\ExampleJob::class => [
-    'host'      => 'http://127.0.0.1',
-    'user'      => 'foo',
-    'password'  => 'bar',
-    'other_key' => 12345,
+    'host'      => env('EXAMPLE_HOST'), // http://127.0.0.1:8080
+    'user'      => env('EXAMPLE_USER'), // 'foo'
+    'password'  => env('EXAMPLE_PASS'), // 'bar'
+    'other_key' => env('EXAMPLE_OTHER_KEY'), // 12345
 ],
 ```
 
