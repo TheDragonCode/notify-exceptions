@@ -143,11 +143,14 @@ try {
 }
 ```
 
-**IMPORTANT!**
+#### **IMPORTANT!**
 To realize the possibility of saving an object to a database table, this object is processed before serialization.
 Due to the peculiarities of linking objects in PHP, serialization does not support the `Throwable` interface, and therefore, if you call method `app('notifex')->send($exception)` before processing a variable, the application may cause an error `Expected array for frame 0`.
 
 To avoid this, use method `parent::report($exception)` strictly **before** sending notifications.
+
+
+## Support
 
 The package out of the box supports sending notifications to the following services:
 * **Email** _(default, enabled)_
