@@ -14,11 +14,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  *
- * @method static \Illuminate\Database\Eloquent\Builder|\AVANGARD\Models\Common\MetaTag whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\AVANGARD\Models\Common\MetaTag whereException($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\AVANGARD\Models\Common\MetaTag whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\AVANGARD\Models\Common\MetaTag whereParent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\AVANGARD\Models\Common\MetaTag whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder whereException($value)
+ * @method static \Illuminate\Database\Eloquent\Builder whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder whereParent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder whereUpdatedAt($value)
  */
 class ErrorNotification extends Model
 {
