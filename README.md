@@ -15,6 +15,8 @@ Notify the site administrator of any errors through various channels of communic
 
 ## Installation
 
+**Attention!** To install the package in Laravel 5.5-5.7, use version [1.x](https://github.com/andrey-helldar/notify-exceptions/tree/v1.1.2).
+
 To get the latest version of Notify Exception, simply require the project using [Composer](https://getcomposer.org):
 
 ```
@@ -26,7 +28,7 @@ Instead, you may of course manually update your `require` block and run `compose
 ```json
 {
     "require": {
-        "andrey-helldar/notify-exceptions": "^1.0"
+        "andrey-helldar/notify-exceptions": "^2.0"
     }
 }
 ```
@@ -63,6 +65,14 @@ composer require lesstif/php-jira-rest-client
 ```
 
 ![2018-10-10_23-32-57](https://user-images.githubusercontent.com/10347617/46765597-187b1a80-cce8-11e8-91c4-ca2fffad88ff.png)
+
+
+### Slack
+
+If you need to send messages in the Slack channel, then you need to install the package [composer require laravel/slack-notification-channel](https://packagist.org/packages/laravel/slack-notification-channel):
+```bash
+composer require laravel/slack-notification-channel
+```
 
 
 ### Your notification services
