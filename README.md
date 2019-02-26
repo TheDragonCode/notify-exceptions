@@ -69,7 +69,7 @@ composer require lesstif/php-jira-rest-client
 
 ### Slack
 
-If you need to send messages in the Slack channel, then you need to install the package [composer require laravel/slack-notification-channel](https://packagist.org/packages/laravel/slack-notification-channel):
+If you need to send messages in the Slack channel, then you need to install the package [laravel/slack-notification-channel](https://packagist.org/packages/laravel/slack-notification-channel):
 ```bash
 composer require laravel/slack-notification-channel
 ```
