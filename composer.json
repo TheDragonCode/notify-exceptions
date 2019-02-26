@@ -37,11 +37,6 @@
             "Helldar\\NotifyExceptions\\": "src/"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
     "config": {
         "preferred-install": "dist",
         "sort-packages": true
