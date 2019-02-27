@@ -40,24 +40,20 @@ class JiraJob extends JobAbstract
      */
     public function handle()
     {
-        try {
-            $field   = new IssueField;
-            $service = new IssueService($this->getJiraConfiguration());
+        $field   = new IssueField;
+        $service = new IssueService($this->getJiraConfiguration());
 
-            $field
-                ->setProjectKey($this->getConfig('project_key'))
-                ->setIssueType($this->getConfig('issue_type'))
-                ->setPriorityName($this->getConfig('priority_name'))
-                ->setSummary($this->getTitle())
-                ->setDescription($this->getDescription())
-                ->addLabel(config('app.url'))
-                ->addLabel(config('app.env'))
-                ->addLabel($this->item->parent);
+        $field
+            ->setProjectKey($this->getConfig('project_key'))
+            ->setIssueType($this->getConfig('issue_type'))
+            ->setPriorityName($this->getConfig('priority_name'))
+            ->setSummary($this->getTitle())
+            ->setDescription($this->getDescription())
+            ->addLabel(config('app.url'))
+            ->addLabel(config('app.env'))
+            ->addLabel($this->item->parent);
 
-            $service->create($field);
-        } catch (JiraException $exception) {
-            app('sneaker')->captureException($exception);
-        }
+        $service->create($field);
     }
 
     private function getTitle(): string

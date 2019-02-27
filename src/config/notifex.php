@@ -3,6 +3,12 @@
 return [
     'queue' => env('NOTIFEX_QUEUE', 'default'),
 
+    'email' => [
+        'enabled' => env('NOTIFEX_EMAIL_ENABLED', true),
+
+        'to' => env('NOTIFEX_EMAIL_TO', 'example@example.com'),
+    ],
+
     'slack' => [
         'enabled' => env('NOTIFEX_SLACK_ENABLED', false),
 

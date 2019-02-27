@@ -37,14 +37,12 @@ If you don't use auto-discovery, add the `ServiceProvider` to the `providers` ar
 
 ```php
 Helldar\NotifyExceptions\ServiceProvider::class,
-SquareBoat\Sneaker\SneakerServiceProvider::class, 
 ```
 
 You can also publish the config file to change implementations (ie. interface to specific class):
 
 ```
 php artisan vendor:publish --provider="Helldar\NotifyExceptions\ServiceProvider"
-php artisan vendor:publish --provider="SquareBoat\Sneaker\SneakerServiceProvider"
 ```
 
 And call `php artisan migrate` command from console. 
@@ -54,7 +52,9 @@ Now you can use the `app('notifex')` method.
 
 ## Configuration
 
-To configure the generation, you need go to `config/notifex.php` file for Slack, Jira settings and `config/sneaker.php` for Email notifications (we using a [squareboat/sneaker](https://github.com/squareboat/sneaker) package for that).
+### Email
+
+See [configuration](config/notifex.php) file.
 
 
 ### Jira
