@@ -13,7 +13,6 @@ use Illuminate\Queue\SerializesModels;
 use JiraRestApi\Configuration\ArrayConfiguration;
 use JiraRestApi\Issue\IssueField;
 use JiraRestApi\Issue\IssueService;
-use JiraRestApi\JiraException;
 
 class JiraJob extends JobAbstract
 {
