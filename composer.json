@@ -3,7 +3,7 @@
     "description": "Notify the site administrator of any errors through various channels of communication.",
     "type": "library",
     "license": "MIT",
-    "keywords": ["notify exceptions", "notifex", "laravel"],
+    "keywords": ["notify exceptions", "notifex", "laravel", "exceptions"],
     "support": {
         "issues": "https://github.com/andrey-helldar/notify-exceptions/issues",
         "source": "https://github.com/andrey-helldar/notify-exceptions"
