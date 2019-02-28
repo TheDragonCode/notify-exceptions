@@ -2,6 +2,7 @@
 
 namespace Helldar\NotifyExceptions;
 
+use Helldar\NotifyExceptions\Console\TestException;
 use Helldar\NotifyExceptions\Services\NotifyException;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 
@@ -28,6 +29,14 @@ class ServiceProvider extends IlluminateServiceProvider
         ]);
 
         $this->loadMigrationsFrom(__DIR__ . '/migrations');
+
+        $this->loadViewsFrom(__DIR__ . '/resources/views', 'notifex');
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                TestException::class,
+            ]);
+        }
     }
 
     /**

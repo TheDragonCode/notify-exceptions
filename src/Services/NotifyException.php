@@ -2,9 +2,12 @@
 
 namespace Helldar\NotifyExceptions\Services;
 
-use Helldar\NotifyExceptions\Jobs\EmailJob;
 use Helldar\NotifyExceptions\Jobs\SlackJob;
+use Helldar\NotifyExceptions\Mail\ExceptionEmail;
 use Helldar\NotifyExceptions\Models\ErrorNotification;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Mail;
+use Jaybizzle\CrawlerDetect\CrawlerDetect;
 
 class NotifyException
 {
@@ -20,14 +23,22 @@ class NotifyException
 
     /**
      * @param \Exception $exception
+     * @param bool $force
      */
     public function send($exception)
     {
-        $stored = $this->store($exception);
+        try {
+            if ($this->isIgnore()) {
+                return;
+            }
 
-        $this->sendEmail($stored);
-        $this->sendSlack($stored);
-        $this->sendJobs($stored);
+            $stored = $this->store($exception);
+
+            $this->sendEmail($stored);
+            $this->sendSlack($stored);
+            $this->sendJobs($stored);
+        } catch (\Exception $exception) {
+        }
     }
 
     /**
@@ -36,8 +47,9 @@ class NotifyException
     protected function sendEmail(ErrorNotification $error_notification)
     {
         if (config('notifex.email.enabled', true)) {
-            EmailJob::dispatch($error_notification)
-                ->onQueue($this->queue);
+            $mail = new ExceptionEmail($error_notification);
+
+            Mail::send($mail);
         }
     }
 
@@ -79,5 +91,27 @@ class NotifyException
         $parent = get_class($exception);
 
         return ErrorNotification::create(compact('parent', 'exception'));
+    }
+
+    private function isIgnore(): bool
+    {
+        $ignore_bots = Config::get('notifex.ignore_bots', true);
+
+        if (!$ignore_bots) {
+            return false;
+        }
+
+        $crawler = new CrawlerDetect;
+
+        return $crawler->isCrawler($this->userAgent());
+    }
+
+    private function userAgent(): ?string
+    {
+        try {
+            return request()->userAgent();
+        } catch (\Exception $exception) {
+            return null;
+        }
     }
 }

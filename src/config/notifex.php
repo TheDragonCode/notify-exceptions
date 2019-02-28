@@ -6,6 +6,8 @@ return [
     'email' => [
         'enabled' => env('NOTIFEX_EMAIL_ENABLED', true),
 
+        'from' => env('NOTIFEX_EMAIL_FROM', 'example@example.com'),
+
         'to' => env('NOTIFEX_EMAIL_TO', 'example@example.com'),
     ],
 
