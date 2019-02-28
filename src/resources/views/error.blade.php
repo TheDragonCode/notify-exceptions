@@ -60,14 +60,14 @@
     <table width="100%">
         <tr>
             <td width="20%">URI</td>
-            <td>{{ request()->url() }}</td>
+            <td>{{ app('request')->url() }}</td>
         </tr>
         <tr>
             <td>Full URI</td>
-            <td>{{ request()->fullUrl() }}</td>
+            <td>{{ app('request')->fullUrl() }}</td>
         </tr>
 
-        @foreach(request()->all() as $key => $value)
+        @foreach(app('request')->all() as $key => $value)
             <tr>
                 <td>{{ $key }}</td>
                 <td>{{ $value }}</td>

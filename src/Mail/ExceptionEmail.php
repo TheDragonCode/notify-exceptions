@@ -46,7 +46,7 @@ class ExceptionEmail extends Mailable implements ShouldQueue
     private function title()
     {
         $parent      = $this->item->parent;
-        $host        = request()->getHost() ?? Config::get('app.url');
+        $host        = app('request')->getHost() ?? Config::get('app.url');
         $environment = Config::get('app.env');
 
         return sprintf('[notifex] %s | %s | %s', $environment, $host, $parent);

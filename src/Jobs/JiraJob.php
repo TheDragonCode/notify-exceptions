@@ -58,7 +58,7 @@ class JiraJob extends JobAbstract
 
     private function getTitle(): string
     {
-        $server      = request()->getHost() ?? Config::get('app.url');
+        $server      = app('request')->getHost() ?? Config::get('app.url');
         $environment = Config::get('app.env');
 
         return sprintf('%s | Server - %s | Environment - %s', $this->item->parent, $server, $environment);

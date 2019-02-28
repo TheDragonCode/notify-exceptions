@@ -47,7 +47,7 @@ class SlackJob implements JobInterface
 
     private function title()
     {
-        $server      = request()->getHost() ?? Config::get('app.url');
+        $server      = app('request')->getHost() ?? Config::get('app.url');
         $environment = Config::get('app.env');
 
         return implode(PHP_EOL, [

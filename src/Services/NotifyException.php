@@ -108,7 +108,7 @@ class NotifyException
     private function userAgent(): ?string
     {
         try {
-            return request()->userAgent();
+            return app('request')->userAgent();
         } catch (\Exception $exception) {
             return null;
         }
