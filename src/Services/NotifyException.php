@@ -18,7 +18,7 @@ class NotifyException
 
     public function __construct()
     {
-        $this->queue = config('notifex.queue', 'default');
+        $this->queue = Config::get('notifex.queue', 'default');
     }
 
     /**
@@ -45,7 +45,7 @@ class NotifyException
      */
     protected function sendEmail(ErrorNotification $error_notification)
     {
-        if (config('notifex.email.enabled', true)) {
+        if (Config::get('notifex.email.enabled', true)) {
             $mail = new ExceptionEmail($error_notification);
 
             Mail::send($mail);
@@ -57,7 +57,7 @@ class NotifyException
      */
     protected function sendSlack(ErrorNotification $error_notification)
     {
-        if (config('notifex.slack.enabled', false)) {
+        if (Config::get('notifex.slack.enabled', false)) {
             SlackJob::dispatch($error_notification)
                 ->onQueue($this->queue);
         }
@@ -68,7 +68,7 @@ class NotifyException
      */
     protected function sendJobs(ErrorNotification $error_notification)
     {
-        $jobs = (array) config('notifex.jobs', []);
+        $jobs = (array) Config::get('notifex.jobs', []);
 
         foreach ($jobs as $job => $params) {
             $job = is_numeric($job) ? $params : $job;

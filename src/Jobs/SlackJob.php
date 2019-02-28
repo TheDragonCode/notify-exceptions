@@ -10,6 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Config;
 
 class SlackJob implements JobInterface
 {
@@ -41,13 +42,13 @@ class SlackJob implements JobInterface
      */
     public function routeNotificationForSlack($notification)
     {
-        return config('notifex.slack.webhook');
+        return Config::get('notifex.slack.webhook');
     }
 
     private function title()
     {
-        $server      = request()->getHost() ?? config('app.url');
-        $environment = config('app.env');
+        $server      = request()->getHost() ?? Config::get('app.url');
+        $environment = Config::get('app.env');
 
         return implode(PHP_EOL, [
             sprintf('*%s | Server - %s | Environment - %s*', $this->item->parent, $server, $environment),

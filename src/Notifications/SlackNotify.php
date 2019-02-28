@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Config;
 
 class SlackNotify extends Notification
 {
@@ -59,7 +60,7 @@ class SlackNotify extends Notification
                 $attachment
                     ->title($this->exception->getMessage())
                     ->content($this->exception->getTraceAsString())
-                    ->footer(config('app.name'))
+                    ->footer(Config::get('app.name'))
                     ->timestamp(Carbon::now());
             });
     }

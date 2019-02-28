@@ -19,9 +19,10 @@
         "guzzlehttp/guzzle": "^6.3",
         "illuminate/bus": "^5.5",
         "illuminate/contracts": "^5.5",
-        "illuminate/queue": "^5.5",
         "illuminate/notifications": "^5.5",
+        "illuminate/queue": "^5.5",
         "illuminate/support": "^5.5",
+        "jaybizzle/crawler-detect": "^1.2",
         "symfony/http-kernel": "^3.2|^4.1"
     },
     "suggest": {

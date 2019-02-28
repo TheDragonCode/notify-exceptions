@@ -10,6 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Config;
 use JiraRestApi\Configuration\ArrayConfiguration;
 use JiraRestApi\Issue\IssueField;
 use JiraRestApi\Issue\IssueService;
@@ -48,8 +49,8 @@ class JiraJob extends JobAbstract
             ->setPriorityName($this->getConfig('priority_name'))
             ->setSummary($this->getTitle())
             ->setDescription($this->getDescription())
-            ->addLabel(config('app.url'))
-            ->addLabel(config('app.env'))
+            ->addLabel(Config::get('app.url'))
+            ->addLabel(Config::get('app.env'))
             ->addLabel($this->item->parent);
 
         $service->create($field);
@@ -57,8 +58,8 @@ class JiraJob extends JobAbstract
 
     private function getTitle(): string
     {
-        $server      = request()->getHost() ?? config('app.url');
-        $environment = config('app.env');
+        $server      = request()->getHost() ?? Config::get('app.url');
+        $environment = Config::get('app.env');
 
         return sprintf('%s | Server - %s | Environment - %s', $this->item->parent, $server, $environment);
     }
