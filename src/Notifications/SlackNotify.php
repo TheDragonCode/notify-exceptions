@@ -1,6 +1,6 @@
 <?php
 
-namespace Helldar\NotifyExceptions\Notifications;
+namespace Helldar\Notifex\Notifications;
 
 use Carbon\Carbon;
 use Illuminate\Notifications\Messages\SlackAttachment;

@@ -1,10 +1,10 @@
 <?php
 
-namespace Helldar\NotifyExceptions\Services;
+namespace Helldar\Notifex\Services;
 
-use Helldar\NotifyExceptions\Jobs\SlackJob;
-use Helldar\NotifyExceptions\Mail\ExceptionEmail;
-use Helldar\NotifyExceptions\Models\ErrorNotification;
+use Helldar\Notifex\Jobs\SlackJob;
+use Helldar\Notifex\Mail\ExceptionEmail;
+use Helldar\Notifex\Models\ErrorNotification;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
@@ -42,7 +42,7 @@ class NotifyException
     }
 
     /**
-     * @param \Helldar\NotifyExceptions\Models\ErrorNotification $error_notification
+     * @param \Helldar\Notifex\Models\ErrorNotification $error_notification
      */
     protected function sendEmail(ErrorNotification $error_notification)
     {
@@ -54,7 +54,7 @@ class NotifyException
     }
 
     /**
-     * @param \Helldar\NotifyExceptions\Models\ErrorNotification $error_notification
+     * @param \Helldar\Notifex\Models\ErrorNotification $error_notification
      */
     protected function sendSlack(ErrorNotification $error_notification)
     {
@@ -65,7 +65,7 @@ class NotifyException
     }
 
     /**
-     * @param \Helldar\NotifyExceptions\Models\ErrorNotification $error_notification
+     * @param \Helldar\Notifex\Models\ErrorNotification $error_notification
      */
     protected function sendJobs(ErrorNotification $error_notification)
     {
@@ -84,7 +84,7 @@ class NotifyException
     /**
      * @param \Exception $exception
      *
-     * @return \Helldar\NotifyExceptions\Models\ErrorNotification
+     * @return \Helldar\Notifex\Models\ErrorNotification
      */
     private function store($exception): ErrorNotification
     {

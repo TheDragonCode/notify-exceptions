@@ -1,6 +1,6 @@
 <?php
 
-namespace Helldar\NotifyExceptions\Traits;
+namespace Helldar\Notifex\Traits;
 
 trait FlattenException
 {

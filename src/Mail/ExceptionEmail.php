@@ -1,8 +1,8 @@
 <?php
 
-namespace Helldar\NotifyExceptions\Mail;
+namespace Helldar\Notifex\Mail;
 
-use Helldar\NotifyExceptions\Models\ErrorNotification;
+use Helldar\Notifex\Models\ErrorNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;

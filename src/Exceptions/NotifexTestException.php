@@ -1,6 +1,6 @@
 <?php
 
-namespace Helldar\NotifyExceptions\Exceptions;
+namespace Helldar\Notifex\Exceptions;
 
 use Symfony\Component\HttpKernel\Exception\HttpException;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Helldar\NotifyExceptions;
+namespace Helldar\Notifex;
 
-use Helldar\NotifyExceptions\Console\TestException;
-use Helldar\NotifyExceptions\Services\NotifyException;
+use Helldar\Notifex\Console\TestException;
+use Helldar\Notifex\Services\NotifyException;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 
 class ServiceProvider extends IlluminateServiceProvider

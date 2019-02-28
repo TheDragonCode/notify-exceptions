@@ -34,7 +34,7 @@
             "src/"
         ],
         "psr-4": {
-            "Helldar\\NotifyExceptions\\": "src/"
+            "Helldar\\Notifex\\": "src/"
         }
     },
     "config": {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Helldar\NotifyExceptions\Abstracts;
+namespace Helldar\Notifex\Abstracts;
 
-use Helldar\NotifyExceptions\Interfaces\JobInterface;
-use Helldar\NotifyExceptions\Traits\JobsConfiguration;
+use Helldar\Notifex\Interfaces\JobInterface;
+use Helldar\Notifex\Traits\JobsConfiguration;
 use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Notifications\Notifiable;

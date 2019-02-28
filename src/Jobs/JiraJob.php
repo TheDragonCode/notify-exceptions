@@ -1,10 +1,10 @@
 <?php
 
-namespace Helldar\NotifyExceptions\Jobs;
+namespace Helldar\Notifex\Jobs;
 
-use Helldar\NotifyExceptions\Abstracts\JobAbstract;
-use Helldar\NotifyExceptions\Models\ErrorNotification;
-use Helldar\NotifyExceptions\Traits\JobsConfiguration;
+use Helldar\Notifex\Abstracts\JobAbstract;
+use Helldar\Notifex\Models\ErrorNotification;
+use Helldar\Notifex\Traits\JobsConfiguration;
 use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Notifications\Notifiable;
@@ -19,14 +19,14 @@ class JiraJob extends JobAbstract
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Notifiable, JobsConfiguration;
 
     /**
-     * @var \Helldar\NotifyExceptions\Models\ErrorNotification
+     * @var \Helldar\Notifex\Models\ErrorNotification
      */
     protected $item;
 
     /**
      * JiraJob constructor.
      *
-     * @param \Helldar\NotifyExceptions\Models\ErrorNotification $item
+     * @param \Helldar\Notifex\Models\ErrorNotification $item
      */
     public function __construct(ErrorNotification $item)
     {

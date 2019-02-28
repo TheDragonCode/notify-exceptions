@@ -1,10 +1,10 @@
 <?php
 
-namespace Helldar\NotifyExceptions\Jobs;
+namespace Helldar\Notifex\Jobs;
 
-use Helldar\NotifyExceptions\Interfaces\JobInterface;
-use Helldar\NotifyExceptions\Models\ErrorNotification;
-use Helldar\NotifyExceptions\Notifications\SlackNotify;
+use Helldar\Notifex\Interfaces\JobInterface;
+use Helldar\Notifex\Models\ErrorNotification;
+use Helldar\Notifex\Notifications\SlackNotify;
 use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Notifications\Notifiable;
@@ -16,7 +16,7 @@ class SlackJob implements JobInterface
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Notifiable;
 
     /**
-     * @var \Helldar\NotifyExceptions\Models\ErrorNotification
+     * @var \Helldar\Notifex\Models\ErrorNotification
      */
     protected $item;
 

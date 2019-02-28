@@ -1,12 +1,12 @@
 <?php
 
-namespace Helldar\NotifyExceptions\Models;
+namespace Helldar\Notifex\Models;
 
-use Helldar\NotifyExceptions\Traits\FlattenException;
+use Helldar\Notifex\Traits\FlattenException;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Helldar\NotifyExceptions\Models\ErrorNotification
+ * Helldar\Notifex\Models\ErrorNotification
  *
  * @property int $id
  * @property string $parent

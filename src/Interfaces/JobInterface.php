@@ -1,8 +1,8 @@
 <?php
 
-namespace Helldar\NotifyExceptions\Interfaces;
+namespace Helldar\Notifex\Interfaces;
 
-use Helldar\NotifyExceptions\Models\ErrorNotification;
+use Helldar\Notifex\Models\ErrorNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 interface JobInterface extends ShouldQueue
