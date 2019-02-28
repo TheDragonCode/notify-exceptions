@@ -2,6 +2,8 @@
 
 return [
     'queue' => env('NOTIFEX_QUEUE', 'default'),
+    
+    'ignore_bots' => true,
 
     'email' => [
         'enabled' => env('NOTIFEX_EMAIL_ENABLED', true),
