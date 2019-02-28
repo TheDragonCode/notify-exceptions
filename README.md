@@ -1,4 +1,4 @@
-# Notify Exceptions
+# Notifex
 
 Notify the site administrator of any errors through various channels of communication.
 
@@ -15,7 +15,7 @@ Notify the site administrator of any errors through various channels of communic
 
 ## Installation
 
-To get the latest version of Notify Exception, simply require the project using [Composer](https://getcomposer.org):
+To get the latest version of `Notifex`, simply require the project using [Composer](https://getcomposer.org):
 
 ```
 composer require andrey-helldar/notify-exceptions
@@ -34,13 +34,13 @@ Instead, you may of course manually update your `require` block and run `compose
 If you don't use auto-discovery, add the `ServiceProvider` to the `providers` array in `config/app.php`:
 
 ```php
-Helldar\NotifyExceptions\ServiceProvider::class,
+Helldar\Notifex\ServiceProvider::class,
 ```
 
 You can also publish the config file to change implementations (ie. interface to specific class):
 
 ```
-php artisan vendor:publish --provider="Helldar\NotifyExceptions\ServiceProvider"
+php artisan vendor:publish --provider="Helldar\Notifex\ServiceProvider"
 ```
 
 And call `php artisan migrate` command from console. 
@@ -90,12 +90,12 @@ composer require laravel/slack-notification-channel
 
 You can easily connect your notification services. To do this, in block `jobs` of file `config/notifex.php`, add a call to its job:
 ```php
-\Helldar\NotifyExceptions\Jobs\ExampleJob::class
+\Helldar\Notifex\Jobs\ExampleJob::class
 ```
 
 If you need to pass any parameters to your job, you can use an associative entry, where the key is the link to the job class, and the values are the parameters:
 ```php
-\Helldar\NotifyExceptions\Jobs\ExampleJob::class => [
+\Helldar\Notifex\Jobs\ExampleJob::class => [
     'host'      => env('EXAMPLE_HOST'), // http://127.0.0.1:8080
     'user'      => env('EXAMPLE_USER'), // 'foo'
     'password'  => env('EXAMPLE_PASS'), // 'bar'
@@ -103,7 +103,7 @@ If you need to pass any parameters to your job, you can use an associative entry
 ],
 ```
 
-Your job should inherit from the abstract class `Helldar\NotifyExceptions\Abstracts\JobAbstract`. This will help to correctly create a class for work.
+Your job should inherit from the abstract class `Helldar\Notifex\Abstracts\JobAbstract`. This will help to correctly create a class for work.
 
 To get the values of the settings you need to use the method `getConfig($key)`:
 ```php
@@ -130,7 +130,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class ExampleJob implements ShouldQueue {}
 
 // after
-use Helldar\NotifyExceptions\Abstracts\JobAbstract;
+use Helldar\Notifex\Abstracts\JobAbstract;
 
 class ExampleJob extends JobAbstract {}
 ```
@@ -178,7 +178,7 @@ To verivy that Notifex is configured correctly and our integration is working, u
 php artisan notifex:test
 ```
 
-A `Helldar\NotifyExceptions\Exceptions\NotifexTestException` class will be thrown and captured by Notifex. The captured exception will appear in your configured email immediately.
+A `Helldar\Notifex\Exceptions\NotifexTestException` class will be thrown and captured by Notifex. The captured exception will appear in your configured email immediately.
 
 
 ## Support
