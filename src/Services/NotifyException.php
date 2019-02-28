@@ -23,7 +23,6 @@ class NotifyException
 
     /**
      * @param \Exception $exception
-     * @param bool $force
      */
     public function send($exception)
     {
