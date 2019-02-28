@@ -15,8 +15,6 @@ Notify the site administrator of any errors through various channels of communic
 
 ## Installation
 
-**Attention!** To install the package in Laravel 5.5-5.7, use version [1.x](https://github.com/andrey-helldar/notify-exceptions/tree/v1.1.2).
-
 To get the latest version of Notify Exception, simply require the project using [Composer](https://getcomposer.org):
 
 ```
@@ -52,9 +50,22 @@ Now you can use the `app('notifex')` method.
 
 ## Configuration
 
+### Ingore bots
+
+By default, the package does not respond to errors created in the process of search bots.
+
+To enable error messages from bots, change the setting `ignore_bots` in [config/notifex.php](src/config/notifex.php) file.
+
+By default, false.
+
+
 ### Email
 
-See [configuration](config/notifex.php) file.
+See [configuration](src/config/notifex.php) file.
+
+Example email message:
+
+![email-message](https://user-images.githubusercontent.com/10347617/53572196-c003c700-3b7b-11e9-93e0-bff5aab01078.png)
 
 
 ### Jira
@@ -158,6 +169,16 @@ To realize the possibility of saving an object to a database table, this object 
 Due to the peculiarities of linking objects in PHP, serialization does not support the `Throwable` interface, and therefore, if you call method `app('notifex')->send($exception)` before processing a variable, the application may cause an error `Expected array for frame 0`.
 
 To avoid this, use method `parent::report($exception)` strictly **before** sending notifications.
+
+
+## Test message
+
+To verivy that Notifex is configured correctly and our integration is working, use `notifex:test` command:
+```
+php artisan notifex:test
+```
+
+A `Helldar\NotifyExceptions\Exceptions\NotifexTestException` class will be thrown and captured by Notifex. The captured exception will appear in your configured email immediately.
 
 
 ## Support
