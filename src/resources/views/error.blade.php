@@ -66,7 +66,19 @@
             <td>Full URI</td>
             <td>{{ app('request')->fullUrl() }}</td>
         </tr>
+        <tr>
+            <td width="20%">Client IP</td>
+            <td>{{ app('request')->getClientIp() ?? '127.0.0.1' }}</td>
+        </tr>
+        <tr>
+            <td>User ID</td>
+            <td>{{ auth()->user()->id ?? 'Guest' }}</td>
+        </tr>
+    </table>
+</div>
 
+<div class="extra-info">
+    <table width="100%">
         @foreach(app('request')->all() as $key => $value)
             <tr>
                 <td>{{ $key }}</td>
