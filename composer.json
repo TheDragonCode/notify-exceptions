@@ -46,7 +46,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Helldar\\NotifyExceptions\\ServiceProvider"
+                "Helldar\\Notifex\\ServiceProvider"
             ]
         }
     }
