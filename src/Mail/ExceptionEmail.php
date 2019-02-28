@@ -49,16 +49,7 @@ class ExceptionEmail extends Mailable implements ShouldQueue
         $host        = request()->getHost() ?? Config::get('app.url');
         $environment = config('app.env');
 
-        return sprintf('[notifex] %s | %s | %s', $class_basename, $environment, $host);
-    }
-
-    private function content(): string
-    {
-        $flat = $this->getFlattenedException();
-
-        $handler = new SymfonyExceptionHandler;
-
-        return $this->decorate($handler->getContent($flat), $handler->getStylesheet($flat), $flat);
+        return sprintf('[notifex] %s | %s | %s', $environment, $host, $parent);
     }
 
     private function getFlattenedException()
