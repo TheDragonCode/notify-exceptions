@@ -4,7 +4,6 @@ namespace Helldar\Notifex\Jobs;
 
 use Exception;
 use Helldar\Notifex\Abstracts\JobAbstract;
-use Helldar\Notifex\Models\ErrorNotification;
 use Helldar\Notifex\Notifications\SlackNotify;
 use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
