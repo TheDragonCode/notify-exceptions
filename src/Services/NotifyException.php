@@ -3,10 +3,7 @@
 namespace Helldar\Notifex\Services;
 
 use Exception;
-use Helldar\Notifex\Jobs\SlackJob;
-use Helldar\Notifex\Mail\ExceptionEmail;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Mail;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
 use Psr\Log\LoggerInterface;
 
@@ -47,7 +44,7 @@ class NotifyException
     /**
      * @param \Exception $exception
      */
-    public function send($exception)
+    public function send(Exception $exception)
     {
         try {
             if ($this->isIgnoreBots() || !$this->isEnabled()) {
@@ -57,46 +54,52 @@ class NotifyException
             $this->exception = $exception;
 
             $this->sendEmail();
-            $this->sendSlack();
             $this->sendJobs();
         } catch (Exception $exception) {
-            $this->logger->error(sprintf(
-                'Exception thrown in Notifex when capturing an exception (%s: %s)',
-                get_class($exception), $exception->getMessage()
-            ));
-
-            $this->logger->error($exception);
+            $this->log($exception, __FUNCTION__);
         }
     }
 
     protected function sendEmail()
     {
-        if (Config::get('notifex.email.enabled', true)) {
-            $mail = new ExceptionEmail($this->getSubject(), $this->getContent());
-
-            Mail::send($mail);
-        }
-    }
-
-    protected function sendSlack()
-    {
-        if (Config::get('notifex.slack.enabled', false)) {
-            SlackJob::dispatch($this->exception, $this->getSubject())
-                ->onQueue($this->queue);
+        try {
+            if (Config::get('notifex.email.enabled', true)) {
+                new Email($this->handler, $this->exception);
+            }
+        } catch (Exception $exception) {
+            $this->log($exception, __FUNCTION__);
         }
     }
 
     protected function sendJobs()
     {
-        $jobs = (array) Config::get('notifex.jobs', []);
+        try {
+            $jobs = (array) Config::get('notifex.jobs', []);
 
-        foreach ($jobs as $job => $params) {
-            if ($params['enabled'] ?? false) {
-                $job = is_numeric($job) ? $params : $job;
-
-                dispatch(new $job($this->exception, $this->getSubject()))
-                    ->onQueue($this->queue);
+            if (!sizeof($jobs)) {
+                return;
             }
+
+            $classname       = (string) get_class($this->exception);
+            $message         = (string) $this->exception->getMessage();
+            $file            = (string) $this->exception->getFile();
+            $line            = (int) $this->exception->getLine();
+            $trace_as_string = (string) $this->exception->getTraceAsString();
+
+            foreach ($jobs as $job => $params) {
+                try {
+                    if ($params['enabled'] ?? true) {
+                        $job = is_numeric($job) ? $params : $job;
+
+                        dispatch(new $job($classname, $message, $file, $line, $trace_as_string))
+                            ->onQueue($this->queue);
+                    }
+                } catch (Exception $exception) {
+                    $this->log($exception, __FUNCTION__);
+                }
+            }
+        } catch (Exception $exception) {
+            $this->log($exception, __FUNCTION__);
         }
     }
 
@@ -116,31 +119,26 @@ class NotifyException
     private function isEnabled()
     {
         $email = Config::get('notifex.email.enabled', true);
-        $slack = Config::get('notifex.slack.enabled', false);
 
         $jobs = array_filter(Config::get('notifex.jobs', []), function ($item) {
-            return $item['enabled'] ?? false == true;
+            return $item['enabled'] ?? true == true;
         });
 
-        return $email == true || $slack == true || sizeof($jobs) > 0;
+        return $email == true || sizeof($jobs) > 0;
     }
 
     private function userAgent(): ?string
     {
-        try {
-            return app('request')->userAgent();
-        } catch (\Exception $exception) {
-            return null;
-        }
+        return app('request')->userAgent() ?? null;
     }
 
-    private function getSubject()
+    private function log(Exception $exception, string $function_name)
     {
-        return $this->handler->convertExceptionToString($this->exception);
-    }
+        $this->logger->error(sprintf(
+            'Exception thrown in %s::%s when capturing an exception',
+            get_class(), $function_name
+        ));
 
-    private function getContent()
-    {
-        return $this->handler->convertExceptionToHtml($this->exception);
+        $this->logger->error($exception);
     }
 }

@@ -14,7 +14,7 @@ class ExceptionEmail extends Mailable implements ShouldQueue
 
     public $content;
 
-    public function __construct(string $subject, string $content)
+    public function __construct(string $subject, string $content, string $file)
     {
         $this->subject = $subject;
 

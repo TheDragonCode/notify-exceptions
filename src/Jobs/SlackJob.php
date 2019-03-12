@@ -2,31 +2,15 @@
 
 namespace Helldar\Notifex\Jobs;
 
-use Exception;
 use Helldar\Notifex\Abstracts\JobAbstract;
-use Helldar\Notifex\Models\ErrorNotification;
 use Helldar\Notifex\Notifications\SlackNotify;
-use Illuminate\Bus\Queueable;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Config;
 
 class SlackJob extends JobAbstract
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Notifiable;
-
-    protected $exception;
-
-    public function __construct(Exception $exception, string $subject)
-    {
-        $this->exception = $exception;
-    }
-
     public function handle()
     {
-        $slack = new SlackNotify($this->exception, $this->title());
+        $slack = new SlackNotify($this->title(), $this->message, $this->trace_as_string);
 
         $this->notify($slack);
     }
@@ -38,19 +22,19 @@ class SlackJob extends JobAbstract
      *
      * @return string
      */
-    public function routeNotificationForSlack($notification)
+    public function routeNotificationForSlack($notification): ?string
     {
-        return Config::get('notifex.slack.webhook');
+        return $this->getConfig(get_class(), 'webhook');
     }
 
-    private function title()
+    private function title(): string
     {
         $host        = app('request')->getHost() ?? Config::get('app.url');
         $environment = Config::get('app.env');
 
         return implode(PHP_EOL, [
-            sprintf('*%s | %s | %s*', $environment, $host, class_basename($this->exception)),
-            sprintf('`%s:%s`', $this->exception->getFile(), $this->exception->getLine()),
+            sprintf('*%s | %s | %s*', $environment, $host, class_basename($this->classname)),
+            sprintf('`%s:%s`', $this->file, $this->line),
         ]);
     }
 }

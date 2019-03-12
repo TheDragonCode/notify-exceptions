@@ -105,12 +105,24 @@ If you need to pass any parameters to your job, you can use an associative entry
 
 Your job should inherit from the abstract class `Helldar\Notifex\Abstracts\JobAbstract`. This will help to correctly create a class for work.
 
-To get the values of the settings you need to use the method `getConfig($key)`:
+To get the values of the settings you need to use the method `getConfig($class, $key)`:
 ```php
-$host      = $this->getConfig('host');
-$user      = $this->getConfig('user');
-$password  = $this->getConfig('password');
-$other_key = $this->getConfig('other_key');
+$host      = $this->getConfig(get_class(), 'host');
+$user      = $this->getConfig(get_class(), 'user');
+$password  = $this->getConfig(get_class(), 'password');
+$other_key = $this->getConfig(get_class(), 'other_key');
+
+// or add `config(string $key)` method:
+
+private function config(string $key)
+{
+    return $this->getConfig(get_class(), $key);
+}
+
+$host      = $this->config('host');
+$user      = $this->config('user');
+$password  = $this->config('password');
+$other_key = $this->config('other_key');
 ```
 
 Examples of completed classes can be found here:

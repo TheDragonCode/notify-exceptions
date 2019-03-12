@@ -2,42 +2,29 @@
 
 namespace Helldar\Notifex\Jobs;
 
-use Exception;
 use Helldar\Notifex\Abstracts\JobAbstract;
-use Helldar\Notifex\Traits\JobsConfiguration;
-use Illuminate\Bus\Queueable;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 
 class ExampleJob extends JobAbstract
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Notifiable, JobsConfiguration;
-
-    /**
-     * @var \Exception
-     */
-    protected $exception;
-
-    /**
-     * @var string
-     */
-    protected $subject;
-
-    public function __construct(Exception $exception, string $subject)
-    {
-        $this->exception = $exception;
-        $this->subject   = $subject;
-    }
-
     public function handle()
     {
-        $host      = $this->getConfig('host');
-        $user      = $this->getConfig('user');
-        $password  = $this->getConfig('password');
-        $other_key = $this->getConfig('other_key');
+        $host      = $this->config('host');
+        $user      = $this->config('user');
+        $password  = $this->config('password');
+        $other_key = $this->config('other_key');
 
         // Your actions.
+        //
+        // $classname       = $this->classname;
+        // $class_basename  = class_basename($this->classname);
+        // $message         = $this->message;
+        // $file            = $this->file;
+        // $line            = $this->line;
+        // $trace_as_string = $this->trace_as_string;
+    }
+
+    private function config(string $key)
+    {
+        return $this->getConfig(get_class(), $key);
     }
 }

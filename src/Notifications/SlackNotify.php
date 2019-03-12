@@ -10,26 +10,17 @@ use Illuminate\Support\Facades\Config;
 
 class SlackNotify extends Notification
 {
-    /**
-     * @var \Exception
-     */
-    protected $exception;
-
-    /**
-     * @var string
-     */
     protected $title;
 
-    /**
-     * Create a new notification instance.
-     *
-     * @param $exception
-     * @param $title
-     */
-    public function __construct($exception, $title)
+    protected $message;
+
+    protected $trace_as_string;
+
+    public function __construct(string $title, string $message, string $trace_as_string)
     {
-        $this->exception = $exception;
-        $this->title     = $title;
+        $this->title           = $title;
+        $this->message         = $message;
+        $this->trace_as_string = $trace_as_string;
     }
 
     /**
@@ -58,8 +49,8 @@ class SlackNotify extends Notification
             ->content($this->title)
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment
-                    ->title($this->exception->getMessage())
-                    ->content($this->exception->getTraceAsString())
+                    ->title($this->message)
+                    ->content($this->trace_as_string)
                     ->footer(Config::get('app.name'))
                     ->timestamp(Carbon::now());
             });
