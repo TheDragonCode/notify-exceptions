@@ -41,5 +41,7 @@ return [
         //    'password'  => env('EXAMPLE_PASS'), // 'bar'
         //    'other_key' => env('EXAMPLE_OTHER_KEY'), // 12345
         //],
+        //
+        // App\Jobs\MyJob::class
     ],
 ];
