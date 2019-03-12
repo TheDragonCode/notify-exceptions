@@ -2,8 +2,8 @@
 
 namespace Helldar\Notifex\Jobs;
 
+use Exception;
 use Helldar\Notifex\Abstracts\JobAbstract;
-use Helldar\Notifex\Models\ErrorNotification;
 use Helldar\Notifex\Traits\JobsConfiguration;
 use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -20,18 +20,17 @@ class JiraJob extends JobAbstract
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Notifiable, JobsConfiguration;
 
     /**
-     * @var \Helldar\Notifex\Models\ErrorNotification
+     * @var \Exception
      */
-    protected $item;
+    protected $exception;
 
-    /**
-     * JiraJob constructor.
-     *
-     * @param \Helldar\Notifex\Models\ErrorNotification $item
-     */
-    public function __construct(ErrorNotification $item)
+    protected $subject;
+
+    public function __construct(Exception $exception, string $subject)
     {
-        $this->item = $item;
+        $this->exception = $exception;
+
+        $this->subject = $subject;
     }
 
     /**
@@ -47,29 +46,21 @@ class JiraJob extends JobAbstract
             ->setProjectKey($this->getConfig('project_key'))
             ->setIssueType($this->getConfig('issue_type'))
             ->setPriorityName($this->getConfig('priority_name'))
-            ->setSummary($this->getTitle())
+            ->setSummary($this->subject)
             ->setDescription($this->getDescription())
             ->addLabel(Config::get('app.url'))
             ->addLabel(Config::get('app.env'))
-            ->addLabel($this->item->parent);
+            ->addLabel(class_basename($this->exception));
 
         $service->create($field);
-    }
-
-    private function getTitle(): string
-    {
-        $server      = app('request')->getHost() ?? Config::get('app.url');
-        $environment = Config::get('app.env');
-
-        return sprintf('%s | Server - %s | Environment - %s', $this->item->parent, $server, $environment);
     }
 
     private function getDescription(): string
     {
         return implode(PHP_EOL, [
-            sprintf('*%s*', $this->item->exception->getMessage()),
-            sprintf('_%s:%s_', $this->item->exception->getFile(), $this->item->exception->getLine()),
-            sprintf('{code:bash}%s{code}', $this->item->exception->getTraceAsString()),
+            sprintf('*%s*', $this->exception->getMessage()),
+            sprintf('_%s:%s_', $this->exception->getFile(), $this->exception->getLine()),
+            sprintf('{code:bash}%s{code}', $this->exception->getTraceAsString()),
         ]);
     }
 

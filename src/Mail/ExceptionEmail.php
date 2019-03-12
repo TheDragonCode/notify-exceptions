@@ -2,26 +2,23 @@
 
 namespace Helldar\Notifex\Mail;
 
-use Helldar\Notifex\Models\ErrorNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Config;
-use Symfony\Component\Debug\Exception\FlattenException;
-use Symfony\Component\Debug\ExceptionHandler as SymfonyExceptionHandler;
 
 class ExceptionEmail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public $item;
+    public $content;
 
-    public $queue;
-
-    public function __construct(ErrorNotification $notification)
+    public function __construct(string $subject, string $content)
     {
-        $this->item = $notification;
+        $this->subject = $subject;
+
+        $this->content = $content;
 
         $this->queue = Config::get('notifex.queue');
     }
@@ -29,35 +26,10 @@ class ExceptionEmail extends Mailable implements ShouldQueue
     public function build()
     {
         $this->from(Config::get('notifex.email.from'));
+
         $this->to(Config::get('notifex.email.to'));
-        $this->subject($this->title());
 
-        $exception = $this->getFlattenedException();
-
-        $handler = new SymfonyExceptionHandler;
-
-        $content = $handler->getContent($exception);
-
-        $css = $handler->getStylesheet($exception);
-
-        return $this->markdown('notifex::error', compact('content', 'css', 'exception'));
-    }
-
-    private function title()
-    {
-        $parent      = $this->item->parent;
-        $host        = app('request')->getHost() ?? Config::get('app.url');
-        $environment = Config::get('app.env');
-
-        return sprintf('[notifex] %s | %s | %s', $environment, $host, $parent);
-    }
-
-    private function getFlattenedException()
-    {
-        if (!$this->item->exception instanceof FlattenException) {
-            return FlattenException::create($this->item->exception);
-        }
-
-        return $this->item->exception;
+        return $this->view('notifex::raw')
+            ->with('content', $this->content);
     }
 }

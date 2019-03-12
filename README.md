@@ -122,7 +122,7 @@ It is worth noting that standard jobs of Laravel are used for the call:
 php artisan make:job <name>
 ```
 
-They should remove the call interface `ShouldQueue` and extend the class 2y:
+They should remove the call interface `ShouldQueue` and extend the class:
 ```php
 // before
 use Illuminate\Contracts\Queue\ShouldQueue;

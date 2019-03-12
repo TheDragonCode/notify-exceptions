@@ -2,8 +2,8 @@
 
 namespace Helldar\Notifex\Jobs;
 
+use Exception;
 use Helldar\Notifex\Abstracts\JobAbstract;
-use Helldar\Notifex\Models\ErrorNotification;
 use Helldar\Notifex\Traits\JobsConfiguration;
 use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -16,16 +16,19 @@ class ExampleJob extends JobAbstract
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Notifiable, JobsConfiguration;
 
     /**
-     * @var \Helldar\Notifex\Models\ErrorNotification
+     * @var \Exception
      */
-    protected $item;
+    protected $exception;
 
     /**
-     * @param \Helldar\Notifex\Models\ErrorNotification $item
+     * @var string
      */
-    public function __construct(ErrorNotification $item)
+    protected $subject;
+
+    public function __construct(Exception $exception, string $subject)
     {
-        $this->item = $item;
+        $this->exception = $exception;
+        $this->subject   = $subject;
     }
 
     public function handle()

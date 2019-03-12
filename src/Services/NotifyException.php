@@ -2,12 +2,13 @@
 
 namespace Helldar\Notifex\Services;
 
+use Exception;
 use Helldar\Notifex\Jobs\SlackJob;
 use Helldar\Notifex\Mail\ExceptionEmail;
-use Helldar\Notifex\Models\ErrorNotification;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
+use Psr\Log\LoggerInterface;
 
 class NotifyException
 {
@@ -16,9 +17,31 @@ class NotifyException
      */
     private $queue;
 
-    public function __construct()
+    /**
+     * The exception handler implementation.
+     *
+     * @var \Helldar\Notifex\Services\ExceptionHandler
+     */
+    private $handler;
+
+    /**
+     * The log writer implementation.
+     *
+     * @var \Psr\Log\LoggerInterface
+     */
+    private $logger;
+
+    /**
+     * @var \Exception
+     */
+    private $exception;
+
+    public function __construct(ExceptionHandler $handler, LoggerInterface $logger)
     {
         $this->queue = Config::get('notifex.queue', 'default');
+
+        $this->handler = $handler;
+        $this->logger  = $logger;
     }
 
     /**
@@ -27,72 +50,57 @@ class NotifyException
     public function send($exception)
     {
         try {
-            if ($this->isIgnore()) {
+            if ($this->isIgnoreBots() || !$this->isEnabled()) {
                 return;
             }
 
-            $stored = $this->store($exception);
+            $this->exception = $exception;
 
-            $this->sendEmail($stored);
-            $this->sendSlack($stored);
-            $this->sendJobs($stored);
-        } catch (\Exception $exception) {
+            $this->sendEmail();
+            $this->sendSlack();
+            $this->sendJobs();
+        } catch (Exception $exception) {
+            $this->logger->error(sprintf(
+                'Exception thrown in Notifex when capturing an exception (%s: %s)',
+                get_class($exception), $exception->getMessage()
+            ));
+
+            $this->logger->error($exception);
         }
     }
 
-    /**
-     * @param \Helldar\Notifex\Models\ErrorNotification $error_notification
-     */
-    protected function sendEmail(ErrorNotification $error_notification)
+    protected function sendEmail()
     {
         if (Config::get('notifex.email.enabled', true)) {
-            $mail = new ExceptionEmail($error_notification);
+            $mail = new ExceptionEmail($this->getSubject(), $this->getContent());
 
             Mail::send($mail);
         }
     }
 
-    /**
-     * @param \Helldar\Notifex\Models\ErrorNotification $error_notification
-     */
-    protected function sendSlack(ErrorNotification $error_notification)
+    protected function sendSlack()
     {
         if (Config::get('notifex.slack.enabled', false)) {
-            SlackJob::dispatch($error_notification)
+            SlackJob::dispatch($this->exception, $this->getSubject())
                 ->onQueue($this->queue);
         }
     }
 
-    /**
-     * @param \Helldar\Notifex\Models\ErrorNotification $error_notification
-     */
-    protected function sendJobs(ErrorNotification $error_notification)
+    protected function sendJobs()
     {
         $jobs = (array) Config::get('notifex.jobs', []);
 
         foreach ($jobs as $job => $params) {
-            $job = is_numeric($job) ? $params : $job;
-
             if ($params['enabled'] ?? false) {
-                dispatch(new $job($error_notification))
+                $job = is_numeric($job) ? $params : $job;
+
+                dispatch(new $job($this->exception, $this->getSubject()))
                     ->onQueue($this->queue);
             }
         }
     }
 
-    /**
-     * @param \Exception $exception
-     *
-     * @return \Helldar\Notifex\Models\ErrorNotification
-     */
-    private function store($exception): ErrorNotification
-    {
-        $parent = get_class($exception);
-
-        return ErrorNotification::create(compact('parent', 'exception'));
-    }
-
-    private function isIgnore(): bool
+    private function isIgnoreBots(): bool
     {
         $ignore_bots = Config::get('notifex.ignore_bots', true);
 
@@ -105,6 +113,18 @@ class NotifyException
         return $crawler->isCrawler($this->userAgent());
     }
 
+    private function isEnabled()
+    {
+        $email = Config::get('notifex.email.enabled', true);
+        $slack = Config::get('notifex.slack.enabled', false);
+
+        $jobs = array_filter(Config::get('notifex.jobs', []), function ($item) {
+            return $item['enabled'] ?? false == true;
+        });
+
+        return $email == true || $slack == true || sizeof($jobs) > 0;
+    }
+
     private function userAgent(): ?string
     {
         try {
@@ -112,5 +132,15 @@ class NotifyException
         } catch (\Exception $exception) {
             return null;
         }
+    }
+
+    private function getSubject()
+    {
+        return $this->handler->convertExceptionToString($this->exception);
+    }
+
+    private function getContent()
+    {
+        return $this->handler->convertExceptionToHtml($this->exception);
     }
 }
