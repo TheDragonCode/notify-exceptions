@@ -4,8 +4,8 @@ namespace Helldar\Notifex\Services;
 
 use Exception;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
-use Psr\Log\LoggerInterface;
 
 class NotifyException
 {
@@ -22,23 +22,15 @@ class NotifyException
     private $handler;
 
     /**
-     * The log writer implementation.
-     *
-     * @var \Psr\Log\LoggerInterface
-     */
-    private $logger;
-
-    /**
      * @var \Exception
      */
     private $exception;
 
-    public function __construct(ExceptionHandler $handler, LoggerInterface $logger)
+    public function __construct(ExceptionHandler $handler)
     {
         $this->queue = Config::get('notifex.queue', 'default');
 
         $this->handler = $handler;
-        $this->logger  = $logger;
     }
 
     /**
@@ -134,11 +126,11 @@ class NotifyException
 
     private function log(Exception $exception, string $function_name)
     {
-        $this->logger->error(sprintf(
+        Log::error(sprintf(
             'Exception thrown in %s::%s when capturing an exception',
             get_class(), $function_name
         ));
 
-        $this->logger->error($exception);
+        Log::error($exception);
     }
 }
