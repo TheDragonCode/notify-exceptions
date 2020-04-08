@@ -13,7 +13,12 @@ use Illuminate\Support\Facades\Config;
 
 abstract class JobAbstract implements JobInterface
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Notifiable, JobsConfiguration;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
+    use Notifiable;
+    use JobsConfiguration;
 
     protected $classname;
 

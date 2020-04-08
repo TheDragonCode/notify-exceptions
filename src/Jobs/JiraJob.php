@@ -16,7 +16,7 @@ class JiraJob extends JobAbstract
      */
     public function handle()
     {
-        $field   = new IssueField;
+        $field   = new IssueField();
         $service = new IssueService($this->getJiraConfiguration());
 
         $field

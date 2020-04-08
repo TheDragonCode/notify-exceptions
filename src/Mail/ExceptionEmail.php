@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Config;
 
 class ExceptionEmail extends Mailable implements ShouldQueue
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     public $content;
 
