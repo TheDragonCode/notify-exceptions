@@ -44,7 +44,7 @@ class SlackNotify extends Notification
      */
     public function toSlack($notifiable)
     {
-        return (new SlackMessage)
+        return (new SlackMessage())
             ->error()
             ->content($this->title)
             ->attachment(function (SlackAttachment $attachment) {

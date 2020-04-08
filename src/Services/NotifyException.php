@@ -68,7 +68,7 @@ class NotifyException
         try {
             $jobs = (array) Config::get('notifex.jobs', []);
 
-            if (!sizeof($jobs)) {
+            if (!count($jobs)) {
                 return;
             }
 
@@ -103,7 +103,7 @@ class NotifyException
             return false;
         }
 
-        $crawler = new CrawlerDetect;
+        $crawler = new CrawlerDetect();
 
         return $crawler->isCrawler($this->userAgent());
     }
@@ -116,7 +116,7 @@ class NotifyException
             return $item['enabled'] ?? true == true;
         });
 
-        return $email == true || sizeof($jobs) > 0;
+        return $email == true || count($jobs) > 0;
     }
 
     private function userAgent(): ?string
@@ -128,7 +128,8 @@ class NotifyException
     {
         Log::error(sprintf(
             'Exception thrown in %s::%s when capturing an exception',
-            get_class(), $function_name
+            get_class(),
+            $function_name
         ));
 
         Log::error($exception);

@@ -20,8 +20,6 @@ class ExceptionHandler
      * Create a new exception handler instance.
      *
      * @param \Illuminate\View\Factory $view
-     *
-     * @return void
      */
     public function __construct(Factory $view)
     {
@@ -55,7 +53,7 @@ class ExceptionHandler
     public function convertExceptionToHtml($exception)
     {
         $flat    = $this->getFlattenedException($exception);
-        $handler = new SymfonyExceptionHandler;
+        $handler = new SymfonyExceptionHandler();
 
         return $this->decorate($handler->getContent($flat), $handler->getStylesheet($flat), $flat);
     }

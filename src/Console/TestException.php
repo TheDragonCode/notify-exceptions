@@ -15,11 +15,11 @@ class TestException extends Command
     public function handle()
     {
         try {
-            app('notifex')->send(new NotifexTestException);
+            app('notifex')->send(new NotifexTestException());
 
             $this->info('Notifex is working fine ✅');
         } catch (NotifexTestException $exception) {
-            (new ConsoleApplication)->renderException($exception, $this->output);
+            (new ConsoleApplication())->renderException($exception, $this->output);
         }
     }
 }
