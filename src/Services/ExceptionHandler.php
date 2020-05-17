@@ -19,7 +19,7 @@ class ExceptionHandler
     /**
      * Create a new exception handler instance.
      *
-     * @param \Illuminate\View\Factory $view
+     * @param  \Illuminate\View\Factory  $view
      */
     public function __construct(Factory $view)
     {
@@ -29,7 +29,7 @@ class ExceptionHandler
     /**
      * Create a string for the given exception.
      *
-     * @param \Exception $exception
+     * @param  \Exception|\Throwable  $exception
      *
      * @return string
      */
@@ -46,7 +46,7 @@ class ExceptionHandler
     /**
      * Create a html for the given exception.
      *
-     * @param \Exception $exception
+     * @param  \Exception|\Throwable  $exception
      *
      * @return string
      */
@@ -61,13 +61,13 @@ class ExceptionHandler
     /**
      * Converts the Exception in a PHP Exception to be able to serialize it.
      *
-     * @param \Exception $exception
+     * @param  \Exception|\Throwable  $exception
      *
      * @return \Symfony\Component\Debug\Exception\FlattenException
      */
     private function getFlattenedException($exception)
     {
-        if (!$exception instanceof FlattenException) {
+        if (! $exception instanceof FlattenException) {
             $exception = FlattenException::create($exception);
         }
 
@@ -77,8 +77,9 @@ class ExceptionHandler
     /**
      * Get the html response content.
      *
-     * @param string $content
-     * @param string $css
+     * @param  string  $content
+     * @param  string  $css
+     * @param  \Exception|\Throwable  $exception
      *
      * @return string
      */

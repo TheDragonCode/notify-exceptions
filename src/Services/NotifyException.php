@@ -2,10 +2,10 @@
 
 namespace Helldar\Notifex\Services;
 
-use Exception;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
+use Throwable;
 
 class NotifyException
 {
@@ -22,7 +22,7 @@ class NotifyException
     private $handler;
 
     /**
-     * @var \Exception
+     * @var \Throwable
      */
     private $exception;
 
@@ -34,12 +34,12 @@ class NotifyException
     }
 
     /**
-     * @param \Exception $exception
+     * @param  \Throwable  $exception
      */
-    public function send(Exception $exception)
+    public function send(Throwable $exception)
     {
         try {
-            if ($this->isIgnoreBots() || !$this->isEnabled()) {
+            if ($this->isIgnoreBots() || ! $this->isEnabled()) {
                 return;
             }
 
@@ -47,7 +47,8 @@ class NotifyException
 
             $this->sendEmail();
             $this->sendJobs();
-        } catch (Exception $exception) {
+        }
+        catch (Throwable $exception) {
             $this->log($exception, __FUNCTION__);
         }
     }
@@ -58,7 +59,8 @@ class NotifyException
             if (Config::get('notifex.email.enabled', true)) {
                 new Email($this->handler, $this->exception);
             }
-        } catch (Exception $exception) {
+        }
+        catch (Throwable $exception) {
             $this->log($exception, __FUNCTION__);
         }
     }
@@ -68,7 +70,7 @@ class NotifyException
         try {
             $jobs = (array) Config::get('notifex.jobs', []);
 
-            if (!count($jobs)) {
+            if (! count($jobs)) {
                 return;
             }
 
@@ -86,11 +88,13 @@ class NotifyException
                         dispatch(new $job($classname, $message, $file, $line, $trace_as_string))
                             ->onQueue($this->queue);
                     }
-                } catch (Exception $exception) {
+                }
+                catch (Throwable $exception) {
                     $this->log($exception, __FUNCTION__);
                 }
             }
-        } catch (Exception $exception) {
+        }
+        catch (Throwable $exception) {
             $this->log($exception, __FUNCTION__);
         }
     }
@@ -99,7 +103,7 @@ class NotifyException
     {
         $ignore_bots = Config::get('notifex.ignore_bots', true);
 
-        if (!$ignore_bots) {
+        if (! $ignore_bots) {
             return false;
         }
 
@@ -124,7 +128,7 @@ class NotifyException
         return app('request')->userAgent() ?? null;
     }
 
-    private function log(Exception $exception, string $function_name)
+    private function log(Throwable $exception, string $function_name)
     {
         Log::error(sprintf(
             'Exception thrown in %s::%s when capturing an exception',

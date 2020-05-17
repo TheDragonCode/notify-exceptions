@@ -2,15 +2,12 @@
 
 namespace Helldar\Notifex\Exceptions;
 
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use Exception;
 
-class NotifexTestException extends HttpException
+class NotifexTestException extends Exception
 {
-    public function __construct(\Exception $previous = null)
+    public function __construct()
     {
-        $message = 'Notifex test exception';
-        $code    = 400;
-
-        parent::__construct($code, $message, $previous, [], $code);
+        parent::__construct('Notifex test exception', 400);
     }
 }

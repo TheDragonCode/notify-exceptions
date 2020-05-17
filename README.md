@@ -26,16 +26,12 @@ Instead, you may of course manually update your `require` block and run `compose
 ```json
 {
     "require": {
-        "andrey-helldar/notify-exceptions": "^2.0"
+        "andrey-helldar/notify-exceptions": "^3.0"
     }
 }
 ```
 
-If you don't use auto-discovery, add the `ServiceProvider` to the `providers` array in `config/app.php`:
-
-```php
-Helldar\Notifex\ServiceProvider::class,
-```
+For Laravel `5.5 - 6.x` run `composer require andrey-helldar/notify-exceptions:^2.0` in your project folder.
 
 You can also publish the config file to change implementations (ie. interface to specific class):
 

@@ -2,9 +2,9 @@
 
 namespace Helldar\Notifex\Services;
 
-use Exception;
 use Helldar\Notifex\Mail\ExceptionEmail;
 use Illuminate\Support\Facades\Mail;
+use Throwable;
 
 class Email
 {
@@ -12,7 +12,7 @@ class Email
 
     private $exception;
 
-    public function __construct(ExceptionHandler $handler, Exception $exception)
+    public function __construct(ExceptionHandler $handler, Throwable $exception)
     {
         $this->handler   = $handler;
         $this->exception = $exception;

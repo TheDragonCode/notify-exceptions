@@ -18,7 +18,6 @@ class ExceptionEmail extends Mailable implements ShouldQueue
     public function __construct(string $subject, string $content)
     {
         $this->subject = $subject;
-
         $this->content = $content;
 
         $this->queue = Config::get('notifex.queue');
@@ -27,7 +26,6 @@ class ExceptionEmail extends Mailable implements ShouldQueue
     public function build()
     {
         $this->from(Config::get('notifex.email.from'));
-
         $this->to(Config::get('notifex.email.to'));
 
         return $this->view('notifex::raw')
