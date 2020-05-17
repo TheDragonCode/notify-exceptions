@@ -11,13 +11,6 @@ class ServiceProvider extends IlluminateServiceProvider
     public const CONFIG_PATH = __DIR__ . '/../config/notifex.php';
 
     /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = false;
-
-    /**
      * Perform post-registration booting of services.
      */
     public function boot()
