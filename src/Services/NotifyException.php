@@ -48,7 +48,8 @@ class NotifyException
 
             $this->sendEmail();
             $this->sendJobs();
-        } catch (Throwable $exception) {
+        }
+        catch (Throwable $exception) {
             $this->log($exception, __FUNCTION__);
         }
     }
@@ -59,7 +60,8 @@ class NotifyException
             if (Config::get('notifex.email.enabled', true)) {
                 new Email($this->handler, $this->exception);
             }
-        } catch (Throwable $exception) {
+        }
+        catch (Throwable $exception) {
             $this->log($exception, __FUNCTION__);
         }
     }
@@ -87,11 +89,13 @@ class NotifyException
                         dispatch(new $job($classname, $message, $file, $line, $trace_as_string))
                             ->onQueue($this->queue);
                     }
-                } catch (Throwable $exception) {
+                }
+                catch (Throwable $exception) {
                     $this->log($exception, __FUNCTION__);
                 }
             }
-        } catch (Throwable $exception) {
+        }
+        catch (Throwable $exception) {
             $this->log($exception, __FUNCTION__);
         }
     }
@@ -111,13 +115,14 @@ class NotifyException
 
     protected function isEnabled()
     {
-        $email = Config::get('notifex.email.enabled', true);
+        $enabled = Config::get('notifex.enabled', true);
+        $email   = Config::get('notifex.email.enabled', true);
 
         $jobs = array_filter(Config::get('notifex.jobs', []), function ($item) {
-            return $item['enabled'] ?? true;
+            return $item['enabled'] ?? false;
         });
 
-        return $email == true || count($jobs) > 0;
+        return $enabled && ($email || count($jobs) > 0);
     }
 
     protected function userAgent(): ?string

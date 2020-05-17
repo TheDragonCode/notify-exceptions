@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'enabled' => env('NOTIFEX_ENABLED', true),
+
     'queue' => env('NOTIFEX_QUEUE', 'default'),
 
     'ignore_bots' => true,
