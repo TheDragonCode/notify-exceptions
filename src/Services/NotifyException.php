@@ -48,8 +48,7 @@ class NotifyException
 
             $this->sendEmail();
             $this->sendJobs();
-        }
-        catch (Throwable $exception) {
+        } catch (Throwable $exception) {
             $this->log($exception, __FUNCTION__);
         }
     }
@@ -60,8 +59,7 @@ class NotifyException
             if (Config::get('notifex.email.enabled', true)) {
                 new Email($this->handler, $this->exception);
             }
-        }
-        catch (Throwable $exception) {
+        } catch (Throwable $exception) {
             $this->log($exception, __FUNCTION__);
         }
     }
@@ -89,13 +87,11 @@ class NotifyException
                         dispatch(new $job($classname, $message, $file, $line, $trace_as_string))
                             ->onQueue($this->queue);
                     }
-                }
-                catch (Throwable $exception) {
+                } catch (Throwable $exception) {
                     $this->log($exception, __FUNCTION__);
                 }
             }
-        }
-        catch (Throwable $exception) {
+        } catch (Throwable $exception) {
             $this->log($exception, __FUNCTION__);
         }
     }
