@@ -12,19 +12,19 @@ class NotifyException
     /**
      * @var string
      */
-    private $queue;
+    protected $queue;
 
     /**
      * The exception handler implementation.
      *
      * @var \Helldar\Notifex\Services\ExceptionHandler
      */
-    private $handler;
+    protected $handler;
 
     /**
      * @var \Throwable
      */
-    private $exception;
+    protected $exception;
 
     public function __construct(ExceptionHandler $handler)
     {
@@ -99,7 +99,7 @@ class NotifyException
         }
     }
 
-    private function isIgnoreBots(): bool
+    protected function isIgnoreBots(): bool
     {
         $ignore_bots = Config::get('notifex.ignore_bots', true);
 
@@ -112,7 +112,7 @@ class NotifyException
         return $crawler->isCrawler($this->userAgent());
     }
 
-    private function isEnabled()
+    protected function isEnabled()
     {
         $email = Config::get('notifex.email.enabled', true);
 
@@ -123,12 +123,12 @@ class NotifyException
         return $email == true || count($jobs) > 0;
     }
 
-    private function userAgent(): ?string
+    protected function userAgent(): ?string
     {
         return app('request')->userAgent() ?? null;
     }
 
-    private function log(Throwable $exception, string $function_name)
+    protected function log(Throwable $exception, string $function_name)
     {
         Log::error(sprintf(
             'Exception thrown in %s::%s when capturing an exception',

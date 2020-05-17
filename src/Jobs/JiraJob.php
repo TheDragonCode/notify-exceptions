@@ -32,14 +32,14 @@ class JiraJob extends JobAbstract
         $service->create($field);
     }
 
-    private function title(): string
+    protected function title(): string
     {
         $environment = Config::get('app.env');
 
         return sprintf('%s | %s | %s', $environment, $this->host(), class_basename($this->classname));
     }
 
-    private function description(): string
+    protected function description(): string
     {
         return implode(PHP_EOL, [
             sprintf('*%s*', $this->message),
@@ -48,14 +48,14 @@ class JiraJob extends JobAbstract
         ]);
     }
 
-    private function host(): string
+    protected function host(): string
     {
         $url = app('request')->url() ?? Config::get('app.url') ?? 'http://localhost';
 
         return parse_url($url, PHP_URL_HOST);
     }
 
-    private function getJiraConfiguration(): ArrayConfiguration
+    protected function getJiraConfiguration(): ArrayConfiguration
     {
         return new ArrayConfiguration([
             'jiraHost'     => $this->config('host'),
@@ -64,7 +64,7 @@ class JiraJob extends JobAbstract
         ]);
     }
 
-    private function config(string $key)
+    protected function config(string $key)
     {
         return $this->getConfig(get_class(), $key);
     }

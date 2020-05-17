@@ -27,7 +27,7 @@ class SlackJob extends JobAbstract
         return $this->getConfig(get_class(), 'webhook');
     }
 
-    private function title(): string
+    protected function title(): string
     {
         $host        = app('request')->getHost() ?? Config::get('app.url');
         $environment = Config::get('app.env');

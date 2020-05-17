@@ -14,7 +14,7 @@ class ExceptionHandler
      *
      * @var \Illuminate\View\Factory
      */
-    private $view;
+    protected $view;
 
     /**
      * Create a new exception handler instance.
@@ -65,7 +65,7 @@ class ExceptionHandler
      *
      * @return \Symfony\Component\Debug\Exception\FlattenException
      */
-    private function getFlattenedException($exception)
+    protected function getFlattenedException($exception)
     {
         if (! $exception instanceof FlattenException) {
             $exception = FlattenException::create($exception);
@@ -83,7 +83,7 @@ class ExceptionHandler
      *
      * @return string
      */
-    private function decorate($content, $css, $exception)
+    protected function decorate($content, $css, $exception)
     {
         return $this->view
             ->make('notifex::body', compact('content', 'css', 'exception'))

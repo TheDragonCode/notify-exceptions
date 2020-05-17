@@ -23,7 +23,7 @@ class ExampleJob extends JobAbstract
         // $trace_as_string = $this->trace_as_string;
     }
 
-    private function config(string $key)
+    protected function config(string $key)
     {
         return $this->getConfig(get_class(), $key);
     }

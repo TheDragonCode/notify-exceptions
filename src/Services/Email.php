@@ -8,9 +8,9 @@ use Throwable;
 
 class Email
 {
-    private $handler;
+    protected $handler;
 
-    private $exception;
+    protected $exception;
 
     public function __construct(ExceptionHandler $handler, Throwable $exception)
     {
@@ -22,12 +22,12 @@ class Email
         Mail::send($mail);
     }
 
-    private function subject(): string
+    protected function subject(): string
     {
         return $this->handler->convertExceptionToString($this->exception);
     }
 
-    private function content(): string
+    protected function content(): string
     {
         return $this->handler->convertExceptionToHtml($this->exception);
     }
