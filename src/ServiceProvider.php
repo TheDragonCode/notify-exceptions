@@ -8,7 +8,7 @@ use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 
 class ServiceProvider extends IlluminateServiceProvider
 {
-    public const CONFIG_PATH = __DIR__ . '/config/notifex.php';
+    public const CONFIG_PATH = __DIR__ . '/../config/notifex.php';
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -30,10 +30,10 @@ class ServiceProvider extends IlluminateServiceProvider
             ], 'config');
 
             $this->publishes([
-                __DIR__ . '/resources/views' => resource_path('views/vendor/notifex'),
+                __DIR__ . '/../resources/views' => resource_path('views/vendor/notifex'),
             ], 'notifex-views');
 
-            $this->loadMigrationsFrom(__DIR__ . '/migrations');
+            $this->loadMigrationsFrom(__DIR__ . '/../migrations');
 
             $this->commands([
                 TestException::class,
