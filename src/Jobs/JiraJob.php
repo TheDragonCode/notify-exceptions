@@ -66,6 +66,7 @@ class JiraJob extends JobAbstract
 
     /**
      * @throws \JiraRestApi\JiraException
+     *
      * @return \JiraRestApi\Issue\IssueService
      */
     protected function getIssueService(): IssueService

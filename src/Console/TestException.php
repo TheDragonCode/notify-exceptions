@@ -20,8 +20,7 @@ class TestException extends Command
             );
 
             $this->info('Notifex is working fine ✅');
-        }
-        catch (NotifexTestException $e) {
+        } catch (NotifexTestException $e) {
             $this->consoleApp()->renderThrowable($e, $this->output);
         }
     }
