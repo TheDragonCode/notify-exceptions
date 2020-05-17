@@ -19,16 +19,34 @@ class ExceptionEmail extends Mailable implements ShouldQueue
     {
         $this->subject = $subject;
         $this->content = $content;
-
-        $this->queue = Config::get('notifex.queue');
+        $this->queue   = $this->getQueueName();
     }
 
     public function build()
     {
-        $this->from(Config::get('notifex.email.from'));
-        $this->to(Config::get('notifex.email.to'));
+        $this->setMailTo();
+        $this->setMailFrom();
 
         return $this->view('notifex::raw')
             ->with('content', $this->content);
+    }
+
+    protected function setMailTo(): void
+    {
+        $this->to(
+            Config::get('notifex.email.to')
+        );
+    }
+
+    protected function setMailFrom(): void
+    {
+        $this->from(
+            Config::get('notifex.email.from')
+        );
+    }
+
+    protected function getQueueName(): string
+    {
+        return Config::get('notifex.queue', 'default');
     }
 }

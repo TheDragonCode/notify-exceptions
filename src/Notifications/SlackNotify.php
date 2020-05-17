@@ -3,10 +3,11 @@
 namespace Helldar\Notifex\Notifications;
 
 use Carbon\Carbon;
+use DateTimeInterface;
+use Helldar\Notifex\Facades\App;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Config;
 
 class SlackNotify extends Notification
 {
@@ -26,7 +27,7 @@ class SlackNotify extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param mixed $notifiable
+     * @param  mixed  $notifiable
      *
      * @return array
      */
@@ -44,15 +45,30 @@ class SlackNotify extends Notification
      */
     public function toSlack($notifiable)
     {
-        return (new SlackMessage())
+        return $this->message()
             ->error()
             ->content($this->title)
             ->attachment(function (SlackAttachment $attachment) {
                 $attachment
                     ->title($this->message)
                     ->content($this->trace_as_string)
-                    ->footer(Config::get('app.name'))
-                    ->timestamp(Carbon::now());
+                    ->footer($this->appName())
+                    ->timestamp($this->currentTime());
             });
+    }
+
+    protected function message(): SlackMessage
+    {
+        return new SlackMessage();
+    }
+
+    protected function appName(): string
+    {
+        return App::name();
+    }
+
+    private function currentTime(): DateTimeInterface
+    {
+        return Carbon::now();
     }
 }

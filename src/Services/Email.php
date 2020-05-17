@@ -17,9 +17,9 @@ class Email
         $this->handler   = $handler;
         $this->exception = $exception;
 
-        $mail = new ExceptionEmail($this->subject(), $this->content());
-
-        Mail::send($mail);
+        $this->send(
+            $this->getException()
+        );
     }
 
     protected function subject(): string
@@ -30,5 +30,15 @@ class Email
     protected function content(): string
     {
         return $this->handler->convertExceptionToHtml($this->exception);
+    }
+
+    protected function getException(): ExceptionEmail
+    {
+        return new ExceptionEmail($this->subject(), $this->content());
+    }
+
+    protected function send(ExceptionEmail $e): void
+    {
+        Mail::send($e);
     }
 }

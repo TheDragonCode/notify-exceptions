@@ -2,7 +2,8 @@
 
 namespace Helldar\Notifex\Services;
 
-use Illuminate\Support\Facades\Config;
+use Helldar\Notifex\Facades\App;
+use Helldar\Notifex\Facades\Http;
 use Illuminate\View\Factory;
 use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\Debug\ExceptionHandler as SymfonyExceptionHandler;
@@ -35,8 +36,8 @@ class ExceptionHandler
      */
     public function convertExceptionToString($exception)
     {
-        $environment = Config::get('app.env');
-        $host        = app('request')->getHost() ?? Config::get('app.url');
+        $environment = $this->environment();
+        $host        = $this->host();
 
         return $this->view
             ->make('notifex::subject', compact('exception', 'environment', 'host'))
@@ -88,5 +89,15 @@ class ExceptionHandler
         return $this->view
             ->make('notifex::body', compact('content', 'css', 'exception'))
             ->render();
+    }
+
+    protected function environment(): string
+    {
+        return App::environment();
+    }
+
+    protected function host(): string
+    {
+        return Http::host();
     }
 }

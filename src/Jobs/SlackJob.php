@@ -4,15 +4,14 @@ namespace Helldar\Notifex\Jobs;
 
 use Helldar\Notifex\Abstracts\JobAbstract;
 use Helldar\Notifex\Notifications\SlackNotify;
-use Illuminate\Support\Facades\Config;
 
 class SlackJob extends JobAbstract
 {
     public function handle()
     {
-        $slack = new SlackNotify($this->title(), $this->message, $this->trace_as_string);
-
-        $this->notify($slack);
+        $this->notify(
+            $this->getSlackNotify()
+        );
     }
 
     /**
@@ -29,12 +28,14 @@ class SlackJob extends JobAbstract
 
     protected function title(): string
     {
-        $host        = app('request')->getHost() ?? Config::get('app.url');
-        $environment = Config::get('app.env');
-
         return implode(PHP_EOL, [
-            sprintf('*%s | %s | %s*', $environment, $host, class_basename($this->classname)),
+            sprintf('*%s | %s | %s*', $this->environment(), $this->host(), $this->classname()),
             sprintf('`%s:%s`', $this->file, $this->line),
         ]);
+    }
+
+    protected function getSlackNotify(): SlackNotify
+    {
+        return new SlackNotify($this->title(), $this->message, $this->trace_as_string);
     }
 }

@@ -25,6 +25,14 @@ class ExampleJob extends JobAbstract
 
     protected function config(string $key)
     {
-        return $this->getConfig(get_class(), $key);
+        return $this->getConfig(
+            $this->getClass(),
+            $key
+        );
+    }
+
+    protected function getClass(): string
+    {
+        return get_class();
     }
 }

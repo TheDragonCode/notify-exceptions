@@ -2,6 +2,7 @@
 
 namespace Helldar\Notifex\Services;
 
+use Helldar\Notifex\Facades\Http;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
@@ -117,7 +118,7 @@ class NotifyException
         $email = Config::get('notifex.email.enabled', true);
 
         $jobs = array_filter(Config::get('notifex.jobs', []), function ($item) {
-            return $item['enabled'] ?? true == true;
+            return $item['enabled'] ?? true;
         });
 
         return $email == true || count($jobs) > 0;
@@ -125,7 +126,7 @@ class NotifyException
 
     protected function userAgent(): ?string
     {
-        return app('request')->userAgent() ?? null;
+        return Http::userAgent();
     }
 
     protected function log(Throwable $exception, string $function_name)

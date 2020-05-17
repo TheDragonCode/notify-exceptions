@@ -2,6 +2,8 @@
 
 namespace Helldar\Notifex\Abstracts;
 
+use Helldar\Notifex\Facades\App;
+use Helldar\Notifex\Facades\Http;
 use Helldar\Notifex\Interfaces\JobInterface;
 use Helldar\Notifex\Traits\JobsConfiguration;
 use Illuminate\Bus\Queueable;
@@ -42,5 +44,20 @@ abstract class JobAbstract implements JobInterface
     protected function getConfig(string $class, string $key)
     {
         return Config::get(sprintf('notifex.jobs.%s.%s', $class, $key));
+    }
+
+    protected function environment(): string
+    {
+        return App::environment();
+    }
+
+    protected function classname(): string
+    {
+        return class_basename($this->classname);
+    }
+
+    protected function host(): string
+    {
+        return Http::host();
     }
 }

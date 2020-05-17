@@ -3,7 +3,6 @@
 namespace Helldar\Notifex\Jobs;
 
 use Helldar\Notifex\Abstracts\JobAbstract;
-use Illuminate\Support\Facades\Config;
 use JiraRestApi\Configuration\ArrayConfiguration;
 use JiraRestApi\Issue\IssueField;
 use JiraRestApi\Issue\IssueService;
@@ -16,8 +15,8 @@ class JiraJob extends JobAbstract
      */
     public function handle()
     {
-        $field   = new IssueField();
-        $service = new IssueService($this->getJiraConfiguration());
+        $field   = $this->getIssueField();
+        $service = $this->getIssueService();
 
         $field
             ->setProjectKey($this->config('project_key'))
@@ -26,17 +25,15 @@ class JiraJob extends JobAbstract
             ->setSummary($this->title())
             ->setDescription($this->description())
             ->addLabel($this->host())
-            ->addLabel(Config::get('app.env'))
-            ->addLabel(class_basename($this->classname));
+            ->addLabel($this->environment())
+            ->addLabel($this->classname());
 
         $service->create($field);
     }
 
     protected function title(): string
     {
-        $environment = Config::get('app.env');
-
-        return sprintf('%s | %s | %s', $environment, $this->host(), class_basename($this->classname));
+        return sprintf('%s | %s | %s', $this->environment(), $this->host(), $this->classname());
     }
 
     protected function description(): string
@@ -46,13 +43,6 @@ class JiraJob extends JobAbstract
             sprintf('_%s:%s_', $this->file, $this->line),
             sprintf('{code:bash}%s{code}', $this->trace_as_string),
         ]);
-    }
-
-    protected function host(): string
-    {
-        $url = app('request')->url() ?? Config::get('app.url') ?? 'http://localhost';
-
-        return parse_url($url, PHP_URL_HOST);
     }
 
     protected function getJiraConfiguration(): ArrayConfiguration
@@ -67,5 +57,21 @@ class JiraJob extends JobAbstract
     protected function config(string $key)
     {
         return $this->getConfig(get_class(), $key);
+    }
+
+    protected function getIssueField(): IssueField
+    {
+        return new IssueField();
+    }
+
+    /**
+     * @throws \JiraRestApi\JiraException
+     * @return \JiraRestApi\Issue\IssueService
+     */
+    protected function getIssueService(): IssueService
+    {
+        return new IssueService(
+            $this->getJiraConfiguration()
+        );
     }
 }
