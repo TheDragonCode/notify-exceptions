@@ -17,7 +17,7 @@ class Email
         $this->handler   = $handler;
         $this->exception = $exception;
 
-        $mail = new ExceptionEmail($this->subject(), $this->content(), $this->file());
+        $mail = new ExceptionEmail($this->subject(), $this->content());
 
         Mail::send($mail);
     }
@@ -30,10 +30,5 @@ class Email
     private function content(): string
     {
         return $this->handler->convertExceptionToHtml($this->exception);
-    }
-
-    private function file(): string
-    {
-        return $this->exception->getFile() . ':' . $this->exception->getLine();
     }
 }
