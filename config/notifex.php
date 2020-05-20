@@ -19,6 +19,27 @@ return [
         'enabled' => env('NOTIFEX_SLACK_ENABLED', false),
 
         'webhook' => env('NOTIFEX_SLACK_WEBHOOK'),
+
+        /*
+         * If specified, the name will be used, otherwise by default.
+         *
+         * Available:
+         *   ['Ghost', ':ghost:']
+         *   ['Ghost']
+         *   null
+         *
+         * By default, null
+         */
+
+        'from' => null,
+
+        /*
+         * If specified, notifications will be sent to the channel.
+         *
+         * By default, null.
+         */
+
+        'to' => null,
     ],
 
     'jobs' => [
