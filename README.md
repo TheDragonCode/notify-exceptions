@@ -50,14 +50,14 @@ Now you can use the `app('notifex')` method.
 
 By default, the package does not respond to errors created in the process of search bots.
 
-To enable error messages from bots, change the setting `ignore_bots` in [config/notifex.php](src/config/notifex.php) file.
+To enable error messages from bots, change the setting `ignore_bots` in [config/notifex.php](config/notifex.php) file.
 
 By default, false.
 
 
 ### Email
 
-See [configuration](src/config/notifex.php) file.
+See [configuration](config/notifex.php) file.
 
 Example email message:
 
