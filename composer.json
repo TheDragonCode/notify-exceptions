@@ -15,15 +15,15 @@
         }
     ],
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.2.5|^8.0",
         "guzzlehttp/guzzle": "^6.3|^7.0",
-        "illuminate/bus": "^7.0",
-        "illuminate/console": "^7.0",
-        "illuminate/contracts": "^7.0",
-        "illuminate/notifications": "^7.0",
-        "illuminate/queue": "^7.0",
-        "illuminate/support": "^7.0",
-        "illuminate/view": "^7.0",
+        "illuminate/bus": "^7.0|^8.0",
+        "illuminate/console": "^7.0|^8.0",
+        "illuminate/contracts": "^7.0|^8.0",
+        "illuminate/notifications": "^7.0|^8.0",
+        "illuminate/queue": "^7.0|^8.0",
+        "illuminate/support": "^7.0|^8.0",
+        "illuminate/view": "^7.0|^8.0",
         "jaybizzle/crawler-detect": "^1.2",
         "symfony/http-kernel": "^5.0"
     },
