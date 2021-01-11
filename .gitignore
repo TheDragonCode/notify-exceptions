@@ -1,2 +1,8 @@
-/vendor/
-.idea
+.idea/
+vendor/
+
+*.cache
+*.clover
+*.orig
+
+composer.lock
