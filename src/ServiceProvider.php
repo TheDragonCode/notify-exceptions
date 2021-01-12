@@ -15,7 +15,7 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__ . '/resources/views', 'notifex');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'notifex');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
