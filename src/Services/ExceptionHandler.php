@@ -7,6 +7,7 @@ use Helldar\Notifex\Facades\Http;
 use Illuminate\View\Factory;
 use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\Debug\ExceptionHandler as SymfonyExceptionHandler;
+use Throwable;
 
 class ExceptionHandler
 {
@@ -30,11 +31,11 @@ class ExceptionHandler
     /**
      * Create a string for the given exception.
      *
-     * @param  \Exception|\Throwable  $exception
+     * @param  \Throwable  $exception
      *
      * @return string
      */
-    public function convertExceptionToString($exception)
+    public function convertExceptionToString(Throwable $exception)
     {
         $environment = $this->environment();
         $host        = $this->host();
@@ -47,11 +48,11 @@ class ExceptionHandler
     /**
      * Create a html for the given exception.
      *
-     * @param  \Exception|\Throwable  $exception
+     * @param  \Throwable  $exception
      *
      * @return string
      */
-    public function convertExceptionToHtml($exception)
+    public function convertExceptionToHtml(Throwable $exception)
     {
         $flat    = $this->getFlattenedException($exception);
         $handler = new SymfonyExceptionHandler();
@@ -62,14 +63,14 @@ class ExceptionHandler
     /**
      * Converts the Exception in a PHP Exception to be able to serialize it.
      *
-     * @param  \Exception|\Throwable  $exception
+     * @param  \Throwable  $exception
      *
      * @return \Symfony\Component\Debug\Exception\FlattenException
      */
-    protected function getFlattenedException($exception)
+    protected function getFlattenedException(Throwable $exception)
     {
         if (! $exception instanceof FlattenException) {
-            $exception = FlattenException::create($exception);
+            $exception = FlattenException::createFromThrowable($exception);
         }
 
         return $exception;
