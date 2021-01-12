@@ -10,20 +10,22 @@ class ServiceProvider extends IlluminateServiceProvider
 {
     public const CONFIG_PATH = __DIR__ . '/../config/notifex.php';
 
+    public const VIEWS_PATH = __DIR__ . '/../resources/views';
+
     /**
      * Perform post-registration booting of services.
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'notifex');
+        $this->loadViewsFrom(self::VIEWS_PATH, 'notifex');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                self::CONFIG_PATH => config_path('notifex.php'),
+                self::CONFIG_PATH => $this->app->configPath('notifex.php'),
             ], 'config');
 
             $this->publishes([
-                __DIR__ . '/../resources/views' => resource_path('views/vendor/notifex'),
+                self::VIEWS_PATH => $this->app->resourcePath('views/vendor/notifex'),
             ], 'notifex-views');
 
             $this->loadMigrationsFrom(__DIR__ . '/../migrations');
