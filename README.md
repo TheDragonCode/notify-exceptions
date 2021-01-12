@@ -153,7 +153,7 @@ It's all! Enjoy 😊
 Add exception capturing to `app/Exceptions/Handler.php`:
 
 ```php
-public function report(Exception $exception)
+public function report(Throwable $exception)
 {
     parent::report($exception);
     
