@@ -9,7 +9,7 @@ class CreateErrorNotificationsTable extends Migration
     public function up()
     {
         Schema::create('error_notifications', function (Blueprint $table) {
-            $table->increments('id');
+            $table->unsignedBigInteger('id');
 
             $table->string('parent');
             $table->longText('exception');
