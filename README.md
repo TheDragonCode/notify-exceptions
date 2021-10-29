@@ -2,7 +2,7 @@
 
 Notify the site administrator of any errors through various channels of communication.
 
-![notify-exceptions](https://user-images.githubusercontent.com/10347617/46622131-2424e080-cb32-11e8-8381-b98f2465191a.png)
+<img src="https://preview.dragon-code.pro/TheDragonCode/notifex.svg?brand=laravel" alt="Laravel Notify Exceptions"/>
 
 <p align="center">
     <a href="https://styleci.io/repos/152111546"><img src="https://styleci.io/repos/152111546/shield" alt="StyleCI" /></a>
