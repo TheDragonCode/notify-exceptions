@@ -1,8 +1,8 @@
 <?php
 
-namespace Helldar\Notifex\Services;
+namespace DragonCode\Notifex\Services;
 
-use Helldar\Notifex\Mail\ExceptionEmail;
+use DragonCode\Notifex\Mail\ExceptionEmail;
 use Illuminate\Support\Facades\Mail;
 use Throwable;
 

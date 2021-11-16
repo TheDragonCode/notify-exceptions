@@ -1,6 +1,6 @@
 <?php
 
-namespace Helldar\Notifex\Exceptions;
+namespace DragonCode\Notifex\Exceptions;
 
 use Exception;
 

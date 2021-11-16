@@ -1,8 +1,8 @@
 <?php
 
-namespace Helldar\Notifex\Console;
+namespace DragonCode\Notifex\Console;
 
-use Helldar\Notifex\Exceptions\NotifexTestException;
+use DragonCode\Notifex\Exceptions\NotifexTestException;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Application as ConsoleApplication;
 

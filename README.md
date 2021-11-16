@@ -1,16 +1,15 @@
 # Notifex
 
-Notify the site administrator of any errors through various channels of communication.
-
 <img src="https://preview.dragon-code.pro/TheDragonCode/notifex.svg?brand=laravel" alt="Laravel Notify Exceptions"/>
 
 <p align="center">
-    <a href="https://styleci.io/repos/152111546"><img src="https://styleci.io/repos/152111546/shield" alt="StyleCI" /></a>
-    <a href="https://packagist.org/packages/andrey-helldar/notify-exceptions"><img src="https://img.shields.io/packagist/dt/andrey-helldar/notify-exceptions.svg?style=flat-square" alt="Total Downloads" /></a>
-    <a href="https://packagist.org/packages/andrey-helldar/notify-exceptions"><img src="https://poser.pugx.org/andrey-helldar/notify-exceptions/v/stable?format=flat-square" alt="Latest Stable Version" /></a>
-    <a href="https://packagist.org/packages/andrey-helldar/notify-exceptions"><img src="https://poser.pugx.org/andrey-helldar/notify-exceptions/v/unstable?format=flat-square" alt="Latest Unstable Version" /></a>
-    <a href="LICENSE"><img src="https://poser.pugx.org/andrey-helldar/notify-exceptions/license?format=flat-square" alt="License" /></a>
+    <a href="https://packagist.org/packages/dragon-code/notify-exceptions"><img src="https://img.shields.io/packagist/dt/dragon-code/notify-exceptions.svg?style=flat-square" alt="Total Downloads" /></a>
+    <a href="https://packagist.org/packages/dragon-code/notify-exceptions"><img src="https://poser.pugx.org/dragon-code/notify-exceptions/v/stable?format=flat-square" alt="Latest Stable Version" /></a>
+    <a href="https://packagist.org/packages/dragon-code/notify-exceptions"><img src="https://poser.pugx.org/dragon-code/notify-exceptions/v/unstable?format=flat-square" alt="Latest Unstable Version" /></a>
+    <a href="LICENSE"><img src="https://poser.pugx.org/dragon-code/notify-exceptions/license?format=flat-square" alt="License" /></a>
 </p>
+
+> Notify the site administrator of any errors through various channels of communication.
 
 
 ## Installation
@@ -18,7 +17,7 @@ Notify the site administrator of any errors through various channels of communic
 To get the latest version of `Notifex`, simply require the project using [Composer](https://getcomposer.org):
 
 ```
-composer require andrey-helldar/notify-exceptions
+composer require dragon-code/notify-exceptions
 ```
 
 Instead, you may of course manually update your `require` block and run `composer update`:
@@ -26,23 +25,26 @@ Instead, you may of course manually update your `require` block and run `compose
 ```json
 {
     "require": {
-        "andrey-helldar/notify-exceptions": "^3.0"
+        "dragon-code/notify-exceptions": "^4.0"
     }
 }
 ```
 
-For Laravel `5.5 - 6.x` run `composer require andrey-helldar/notify-exceptions:^2.0` in your project folder.
-
 You can also publish the config file to change implementations (ie. interface to specific class):
 
 ```
-php artisan vendor:publish --provider="Helldar\Notifex\ServiceProvider"
+php artisan vendor:publish --provider="DragonCode\Notifex\ServiceProvider"
 ```
 
-And call `php artisan migrate` command from console. 
+And call `php artisan migrate` command from console.
 
 Now you can use the `app('notifex')` method.
 
+### Upgrade from `andrey-helldar/notify-exceptions`
+
+1. Replace `"andrey-helldar/notify-exceptions": "^3.0"` with `"dragon-code/notify-exceptions": "^4.0"` in the `composer.json` file;
+3. Replace `Helldar\Notifex` namespace prefix with `DragonCode\Notifex`;
+4. Call the `composer update` console command.
 
 ## Configuration
 
@@ -67,6 +69,7 @@ Example email message:
 ### Jira
 
 If you need to create issues in the Jira, then you need to install the package [lesstif/php-jira-rest-client](https://github.com/lesstif/php-jira-rest-client):
+
 ```bash
 composer require lesstif/php-jira-rest-client
 ```
@@ -76,22 +79,25 @@ composer require lesstif/php-jira-rest-client
 
 ### Slack
 
-If you need to send messages in the Slack channel, then you need to install the package [laravel/slack-notification-channel](https://packagist.org/packages/laravel/slack-notification-channel):
+If you need to send messages in the Slack channel, then you need to install the
+package [laravel/slack-notification-channel](https://packagist.org/packages/laravel/slack-notification-channel):
+
 ```bash
 composer require laravel/slack-notification-channel
 ```
 
-
 ### Your notification services
 
 You can easily connect your notification services. To do this, in block `jobs` of file `config/notifex.php`, add a call to its job:
+
 ```php
-\Helldar\Notifex\Jobs\ExampleJob::class
+\DragonCode\Notifex\Jobs\ExampleJob::class
 ```
 
 If you need to pass any parameters to your job, you can use an associative entry, where the key is the link to the job class, and the values are the parameters:
+
 ```php
-\Helldar\Notifex\Jobs\ExampleJob::class => [
+\DragonCode\Notifex\Jobs\ExampleJob::class => [
     'host'      => env('EXAMPLE_HOST'), // http://127.0.0.1:8080
     'user'      => env('EXAMPLE_USER'), // 'foo'
     'password'  => env('EXAMPLE_PASS'), // 'bar'
@@ -99,9 +105,10 @@ If you need to pass any parameters to your job, you can use an associative entry
 ],
 ```
 
-Your job should inherit from the abstract class `Helldar\Notifex\Abstracts\JobAbstract`. This will help to correctly create a class for work.
+Your job should inherit from the abstract class `DragonCode\Notifex\Abstracts\JobAbstract`. This will help to correctly create a class for work.
 
 To get the values of the settings you need to use the method `getConfig($class, $key)`:
+
 ```php
 $host      = $this->getConfig(get_class(), 'host');
 $user      = $this->getConfig(get_class(), 'user');
@@ -122,15 +129,18 @@ $other_key = $this->config('other_key');
 ```
 
 Examples of completed classes can be found here:
+
 * [ExampleJob](src/Jobs/ExampleJob.php)
 * [JiraJob](src/Jobs/JiraJob.php)
 
 It is worth noting that standard jobs of Laravel are used for the call:
+
 ```bash
 php artisan make:job <name>
 ```
 
 They should remove the call interface `ShouldQueue` and extend the class:
+
 ```php
 // before
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -138,7 +148,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class ExampleJob implements ShouldQueue {}
 
 // after
-use Helldar\Notifex\Abstracts\JobAbstract;
+use DragonCode\Notifex\Abstracts\JobAbstract;
 
 class ExampleJob extends JobAbstract {}
 ```
@@ -164,6 +174,7 @@ public function report(Throwable $exception)
 ```
 
 or just use in your code:
+
 ```php
 try {
     $foo = $bar
@@ -173,8 +184,10 @@ try {
 ```
 
 #### **IMPORTANT!**
-To realize the possibility of saving an object to a database table, this object is processed before serialization.
-Due to the peculiarities of linking objects in PHP, serialization does not support the `Throwable` interface, and therefore, if you call method `app('notifex')->send($exception)` before processing a variable, the application may cause an error `Expected array for frame 0`.
+
+To realize the possibility of saving an object to a database table, this object is processed before serialization. Due to the peculiarities of linking objects in PHP, serialization
+does not support the `Throwable` interface, and therefore, if you call method `app('notifex')->send($exception)` before processing a variable, the application may cause an
+error `Expected array for frame 0`.
 
 To avoid this, use method `parent::report($exception)` strictly **before** sending notifications.
 
@@ -182,29 +195,22 @@ To avoid this, use method `parent::report($exception)` strictly **before** sendi
 ## Test message
 
 To verivy that Notifex is configured correctly and our integration is working, use `notifex:test` command:
+
 ```
 php artisan notifex:test
 ```
 
-A `Helldar\Notifex\Exceptions\NotifexTestException` class will be thrown and captured by Notifex. The captured exception will appear in your configured email immediately.
+A `DragonCode\Notifex\Exceptions\NotifexTestException` class will be thrown and captured by Notifex. The captured exception will appear in your configured email immediately.
 
 
 ## Support
 
 The package out of the box supports sending notifications to the following services:
+
 * **Email** _(default, enabled)_
 * **Slack** _(default, disabled)_
 * **Jira** _(default, disabled)_
 
-
 ## License
 
 This package is licensed under the [MIT License](LICENSE).
-
-
-## For Enterprise
-
-Available as part of the Tidelift Subscription.
-
-The maintainers of `andrey-helldar/notify-exceptions` and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source packages you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact packages you use. [Learn more](https://tidelift.com/subscription/pkg/packagist-andrey-helldar-notify-exceptions?utm_source=packagist-andrey-helldar-notify-exceptions&utm_medium=referral&utm_campaign=enterprise&utm_term=repo).
-

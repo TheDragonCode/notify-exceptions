@@ -1,9 +1,9 @@
 <?php
 
-namespace Helldar\Notifex\Jobs;
+namespace DragonCode\Notifex\Jobs;
 
-use Helldar\Notifex\Abstracts\JobAbstract;
-use Helldar\Notifex\Notifications\SlackNotify;
+use DragonCode\Notifex\Abstracts\JobAbstract;
+use DragonCode\Notifex\Notifications\SlackNotify;
 
 class SlackJob extends JobAbstract
 {

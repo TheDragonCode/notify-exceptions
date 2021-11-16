@@ -1,8 +1,8 @@
 <?php
 
-namespace Helldar\Notifex\Facades;
+namespace DragonCode\Notifex\Facades;
 
-use Helldar\Notifex\Support\Http as HttpSupport;
+use DragonCode\Notifex\Support\Http as HttpSupport;
 use Illuminate\Support\Facades\Facade;
 
 /**

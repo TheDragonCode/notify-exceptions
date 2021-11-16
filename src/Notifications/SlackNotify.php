@@ -1,10 +1,10 @@
 <?php
 
-namespace Helldar\Notifex\Notifications;
+namespace DragonCode\Notifex\Notifications;
 
 use Carbon\Carbon;
 use DateTimeInterface;
-use Helldar\Notifex\Facades\App;
+use DragonCode\Notifex\Facades\App;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
