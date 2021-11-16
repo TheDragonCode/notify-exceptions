@@ -37,6 +37,9 @@
         "laravel/slack-notification-channel": "Slack Notification Channel for Laravel",
         "symfony/thanks": "Give thanks (in the form of a GitHub) to your fellow PHP package maintainers"
     },
+    "conflict": {
+        "andrey-helldar/notify-exceptions": "*"
+    },
     "autoload": {
         "psr-4": {
             "DragonCode\\Notifex\\": "src"
