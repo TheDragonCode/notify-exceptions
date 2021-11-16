@@ -1,6 +1,6 @@
 <?php
 
-namespace Helldar\Notifex\Support;
+namespace DragonCode\Notifex\Support;
 
 use Illuminate\Support\Facades\Config;
 

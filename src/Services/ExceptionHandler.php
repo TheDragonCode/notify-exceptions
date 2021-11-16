@@ -1,9 +1,9 @@
 <?php
 
-namespace Helldar\Notifex\Services;
+namespace DragonCode\Notifex\Services;
 
-use Helldar\Notifex\Facades\App;
-use Helldar\Notifex\Facades\Http;
+use DragonCode\Notifex\Facades\App;
+use DragonCode\Notifex\Facades\Http;
 use Illuminate\View\Factory;
 use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\Debug\ExceptionHandler as SymfonyExceptionHandler;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Helldar\Notifex\Interfaces;
+namespace DragonCode\Notifex\Interfaces;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 

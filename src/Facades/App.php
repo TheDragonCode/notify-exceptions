@@ -1,8 +1,8 @@
 <?php
 
-namespace Helldar\Notifex\Facades;
+namespace DragonCode\Notifex\Facades;
 
-use Helldar\Notifex\Support\App as AppSupport;
+use DragonCode\Notifex\Support\App as AppSupport;
 use Illuminate\Support\Facades\Facade;
 
 /**

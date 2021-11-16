@@ -1,8 +1,8 @@
 <?php
 
-namespace Helldar\Notifex\Services;
+namespace DragonCode\Notifex\Services;
 
-use Helldar\Notifex\Facades\Http;
+use DragonCode\Notifex\Facades\Http;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
@@ -18,7 +18,7 @@ class NotifyException
     /**
      * The exception handler implementation.
      *
-     * @var \Helldar\Notifex\Services\ExceptionHandler
+     * @var \DragonCode\Notifex\Services\ExceptionHandler
      */
     protected $handler;
 

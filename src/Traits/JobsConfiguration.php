@@ -1,6 +1,6 @@
 <?php
 
-namespace Helldar\Notifex\Traits;
+namespace DragonCode\Notifex\Traits;
 
 trait JobsConfiguration
 {

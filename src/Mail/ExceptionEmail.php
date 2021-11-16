@@ -1,6 +1,6 @@
 <?php
 
-namespace Helldar\Notifex\Mail;
+namespace DragonCode\Notifex\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

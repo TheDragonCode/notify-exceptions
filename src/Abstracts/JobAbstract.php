@@ -1,11 +1,11 @@
 <?php
 
-namespace Helldar\Notifex\Abstracts;
+namespace DragonCode\Notifex\Abstracts;
 
-use Helldar\Notifex\Facades\App;
-use Helldar\Notifex\Facades\Http;
-use Helldar\Notifex\Interfaces\JobInterface;
-use Helldar\Notifex\Traits\JobsConfiguration;
+use DragonCode\Notifex\Facades\App;
+use DragonCode\Notifex\Facades\Http;
+use DragonCode\Notifex\Interfaces\JobInterface;
+use DragonCode\Notifex\Traits\JobsConfiguration;
 use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Notifications\Notifiable;

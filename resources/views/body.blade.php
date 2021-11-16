@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="robots" content="noindex,nofollow"/>
+    <meta name="robots" content="noindex,nofollow" />
     <style>
         /* Copyright (c) 2010, Yahoo! Inc. All rights reserved. Code licensed under the BSD License: http://developer.yahoo.com/yui/license.html */
         html {color: #000;background: #FFF;}

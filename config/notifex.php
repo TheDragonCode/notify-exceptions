@@ -78,7 +78,7 @@ return [
     ],
 
     'jobs' => [
-        //\Helldar\Notifex\Jobs\JiraJob::class => [
+        // \DragonCode\Notifex\Jobs\JiraJob::class => [
         //    'enabled' => env('NOTIFEX_JIRA_ENABLED', false),
         //
         //    'host'     => env('NOTIFEX_JIRA_HOST'),
@@ -91,9 +91,9 @@ return [
         //],
         //
         /*
-         * @see \Helldar\Notifex\Jobs\ExampleJob
+         * @see \DragonCode\Notifex\Jobs\ExampleJob
          */
-        //\Helldar\Notifex\Jobs\ExampleJob::class => [
+        // \DragonCode\Notifex\Jobs\ExampleJob::class => [
         //    'host'      => env('EXAMPLE_HOST'), // http://127.0.0.1:8080
         //    'user'      => env('EXAMPLE_USER'), // 'foo'
         //    'password'  => env('EXAMPLE_PASS'), // 'bar'
