@@ -167,7 +167,7 @@ public function report(Throwable $exception)
 {
     parent::report($exception);
     
-    if (app()->bound('notifex') && $this->shouldReport($e)) {
+    if (app()->bound('notifex') && $this->shouldReport($exception)) {
         app('notifex')->send($exception);
     }
 }
