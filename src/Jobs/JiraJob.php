@@ -3,15 +3,17 @@
 namespace DragonCode\Notifex\Jobs;
 
 use DragonCode\Notifex\Abstracts\JobAbstract;
+use Exception;
 use JiraRestApi\Configuration\ArrayConfiguration;
 use JiraRestApi\Issue\IssueField;
 use JiraRestApi\Issue\IssueService;
+use JsonMapper_Exception;
 
 class JiraJob extends JobAbstract
 {
     /**
-     * @throws \JsonMapper_Exception
-     * @throws \Exception
+     * @throws JsonMapper_Exception
+     * @throws Exception
      */
     public function handle()
     {

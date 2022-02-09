@@ -10,9 +10,7 @@ use Throwable;
 
 class NotifyException
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $queue;
 
     /**
@@ -22,9 +20,7 @@ class NotifyException
      */
     protected $handler;
 
-    /**
-     * @var \Throwable
-     */
+    /** @var Throwable */
     protected $exception;
 
     public function __construct(ExceptionHandler $handler)
@@ -35,7 +31,7 @@ class NotifyException
     }
 
     /**
-     * @param  \Throwable  $exception
+     * @param Throwable $exception
      */
     public function send(Throwable $exception)
     {

@@ -17,7 +17,7 @@ class SlackJob extends JobAbstract
     /**
      * Route notifications for the Slack channel.
      *
-     * @param  \Illuminate\Notifications\Notification  $notification
+     * @param \Illuminate\Notifications\Notification $notification
      *
      * @return string
      */

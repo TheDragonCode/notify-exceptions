@@ -4,6 +4,7 @@ namespace DragonCode\Notifex\Services;
 
 use DragonCode\Notifex\Facades\App;
 use DragonCode\Notifex\Facades\Http;
+use Exception;
 use Illuminate\View\Factory;
 use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\Debug\ExceptionHandler as SymfonyExceptionHandler;
@@ -21,7 +22,7 @@ class ExceptionHandler
     /**
      * Create a new exception handler instance.
      *
-     * @param  \Illuminate\View\Factory  $view
+     * @param \Illuminate\View\Factory $view
      */
     public function __construct(Factory $view)
     {
@@ -31,7 +32,7 @@ class ExceptionHandler
     /**
      * Create a string for the given exception.
      *
-     * @param  \Throwable  $exception
+     * @param Throwable $exception
      *
      * @return string
      */
@@ -48,7 +49,7 @@ class ExceptionHandler
     /**
      * Create a html for the given exception.
      *
-     * @param  \Throwable  $exception
+     * @param Throwable $exception
      *
      * @return string
      */
@@ -63,7 +64,7 @@ class ExceptionHandler
     /**
      * Converts the Exception in a PHP Exception to be able to serialize it.
      *
-     * @param  \Throwable  $exception
+     * @param Throwable $exception
      *
      * @return \Symfony\Component\Debug\Exception\FlattenException
      */
@@ -79,9 +80,9 @@ class ExceptionHandler
     /**
      * Get the html response content.
      *
-     * @param  string  $content
-     * @param  string  $css
-     * @param  \Exception|\Throwable  $exception
+     * @param string $content
+     * @param string $css
+     * @param Exception|Throwable $exception
      *
      * @return string
      */
