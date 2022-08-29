@@ -81,7 +81,8 @@ class SlackNotify extends Notification
         if ($from = Config::get('notifex.slack.from')) {
             if (count($from) === 2) {
                 [$username, $icon] = $from;
-            } elseif (count($from) === 1) {
+            }
+            elseif (count($from) === 1) {
                 [$username] = $from;
             }
 
