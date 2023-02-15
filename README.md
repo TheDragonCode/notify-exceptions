@@ -9,7 +9,9 @@
     <a href="LICENSE"><img src="https://poser.pugx.org/dragon-code/notify-exceptions/license?format=flat-square" alt="License" /></a>
 </p>
 
-> Notify the site administrator of any errors through various channels of communication.
+> You can use both [official plugins](https://laravel.com/docs/10.x/notifications) from the Laravel team and [plugins](https://laravel-notification-channels.com/) from the [community](https://laravel-notification-channels.com/).
+>
+> Of course, you can also create your own.
 
 
 ## Installation
